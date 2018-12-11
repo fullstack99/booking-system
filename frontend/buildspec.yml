@@ -1,0 +1,21 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - npm install
+  build:
+    commands:
+      - echo "*** Starting Build ***"
+      - npm run build
+      - echo "*** Build Complete ***"
+  post_build:
+    commands:
+      - echo "*** Starting Post Build ***"
+      - ls -lah
+      - echo "*** Post Build Complete ***"
+artifacts:
+  files:
+    - '**/*'
+  base-directory: build
+  discard-paths: no
