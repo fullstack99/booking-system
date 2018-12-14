@@ -191,7 +191,7 @@ class Delivered extends Component {
   checkType(value, event) {
     const data = {
       type: value,
-      location: ''
+      location: 'delivered'
     }
     this.props.setSubscriptionType(data);
     this.props.push('/pickDate');
