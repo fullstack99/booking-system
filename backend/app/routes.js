@@ -17,7 +17,7 @@ module.exports = function(app, passport) {
                         {status: {$ne: 'cancel'}}
                     ]} , function (err, appointment) {
                     if (err) {
-                        res.status(200).send({
+                        return res.status(200).send({
                             user: req.user,
                             appointment: null,
                             token: req.user.generateJwt()

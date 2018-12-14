@@ -9,7 +9,11 @@ module.exports = {
     create(req, res) {
         const mail = req.body.email;
 
-        appointment.findOne({_uesr: req.body._user}, function(error, appointment) {
+        appointment.findOne({
+            $and: [
+                {_user: req.body._user},
+                {status: {$ne: 'cancel'}}
+            ]}, function(error, appointment) {
             if (appointment) {
                 const msg = {
                     to: mail,
