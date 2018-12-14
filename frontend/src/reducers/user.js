@@ -239,13 +239,14 @@ const cancelAppointmentRequest = state => {
     const newState = Immutable(state)
     return newState.merge({
         isFetching: true,
+        cancelAppointment: true,
     })
 }
 
 const cancelAppointmentSuccess = (state) => {
     return state.merge({
         booking: null,
-        cancelAppointment: true,
+        cancelAppointment: false,
         isFetching: false,
         isFetched: true
     })

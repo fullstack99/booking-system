@@ -152,14 +152,16 @@ class Detail extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    console.log('nextProps', nextProps);
     const booking = JSON.parse(localStorage.getItem('booking'));
     this.setState({ booking });
 
-    const cancelAppointment = nextProps.cancelAppointment;
-    if (cancelAppointment) {
-      localStorage.removeItem('booking');
-      this.props.push('/');
-    }
+    // const cancelAppointment = nextProps.cancelAppointment;
+    // if (cancelAppointment) {
+    //   localStorage.removeItem('booking');
+    //   this.setState({ booking: null });
+    //   this.props.push('/');
+    // }
   }
 
   navigate = to => {
@@ -189,12 +191,16 @@ class Detail extends Component {
   }
 
   cancel = () => {
+    localStorage.removeItem('booking');
     this.setState({
       anchorEl: null,
       checkedCancel: !this.state.checkedCancel,
-      checkedReschedule: false
+      checkedReschedule: false,
+      booking: null
+    },() => {
+      this.props.cancelAppointmentRequest(this.state.booking._id);
+      this.props.push('/');
     });
-    this.props.cancelAppointmentRequest(this.state.booking._id);
   }
 
   goHello = () => {
