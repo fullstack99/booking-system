@@ -10,7 +10,7 @@ module.exports = {
     create(req, res) {
         const mail = req.body.email;
 
-        appointment.findOne({
+        Appointment.findOne({
             $and: [
                 {_user: req.body._user},
                 {status: {$ne: 'cancel'}}

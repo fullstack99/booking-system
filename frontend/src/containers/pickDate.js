@@ -108,7 +108,7 @@ const styles = theme => ({
     border: '1px solid #00a2e1',
     fontSize: 20,
     color: '#00a2e1 !important',
-    width: 100,
+    width: 140,
     height: 50,
     margin: 15,
     display: 'flex',
