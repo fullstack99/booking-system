@@ -118,6 +118,8 @@ class Header extends React.Component {
       this.props.navigate('/');
     } else if (!user) {
       this.props.navigate('/');
+    } else if (token && reschedule && userAppointment && user && user.isConfirm) {
+      this.props.navigate('/');
     }
   }
 
