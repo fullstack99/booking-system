@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 
 const Appointment = require('../models/appointment');
 const config = require('../config/config');
+sgMail.setApiKey(config.mail.key);
 
 module.exports = {
     create(req, res) {
@@ -41,7 +42,6 @@ module.exports = {
                     if (err) {
                         return res.status(500).send({ error: err });
                     } else {
-                        sgMail.setApiKey(config.mail.key);
                         const msg = {
                             to: mail,
                             from: 'noreply@gmail.com',
