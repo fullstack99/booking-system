@@ -21,10 +21,10 @@ module.exports = {
                     from: 'noreply@wgv.com',
                     subject: 'Appointment',
                     text: 'Booking Appointment',
-                    html: ` <stron>You have already one appointment</stron></br>
-                            <strong>Date: </strong><p>${appointment.bookingDate} ${appointment.bookingTime}</p> </br>
-                            <strong>appointment: </strong><p>${appointment.appointment}</p> </br>
-                            <strong>type: </strong><p>${appointment.type}</p> </br>`,
+                    html: ` <strong>You have already one appointment</strong></br>
+                            <strong>Place: </strong><p>${appointment.location}</p></br>
+                            <strong>Time: </strong><p>${appointment.bookingDate} ${appointment.bookingTime}</p></br>
+                            <strong>Type: </strong><p>${appointment.type}</p>`,
                 };
                 sgMail.send(msg)
                 res.status(200).send({ data: appointment });
@@ -45,11 +45,11 @@ module.exports = {
                         const msg = {
                             to: mail,
                             from: 'noreply@wgv.com',
-                            subject: 'Appointment',
+                            subject: 'New Appointment',
                             text: 'Booking Appointment',
-                            html: `<strong>Date: </strong><p>${appointment.bookingDate} ${appointment.bookingTime}</p> </br>
-                                    <strong>appointment: </strong><p>${appointment.appointment}</p> </br>
-                                    <strong>type: </strong><p>${appointment.type}</p> </br>`,
+                            html: ` <strong>Place: </strong><p>${appointment.location}</p> </br>
+                                    <strong>Time: </strong><p>${appointment.bookingDate} ${appointment.bookingTime}</p></br>
+                                    <strong>Type: </strong><p>${appointment.type}</p>`,
                         };
                         sgMail.send(msg)
                         res.status(200).send({ data: result });
