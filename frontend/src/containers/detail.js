@@ -239,7 +239,12 @@ class Detail extends Component {
               >
                 <div className={classes.popover}>
                   <label className={classes.label}>PLACE: <span className={classes.span1}>{booking.location}</span></label>
-                  <label className={classes.label}>TIME: <span className={classes.span2}>{booking.bookingTime}</span></label>
+                  <label className={classes.label}>TIME: <span className={classes.span2}>{
+                    parseInt(booking.bookingTime) > 12 ?
+                      parseInt(booking.bookingTime.substr(0, booking.bookingTime.length - 1)) - 12 + ' : ' + booking.bookingTime.substr(booking.bookingTime.length - 3) + ' pm'
+                    : booking.bookingTime + ' am'
+
+                  }</span></label>
                   <div className={classes.action}>
                     <div>
                       <label>CANCEL</label>
