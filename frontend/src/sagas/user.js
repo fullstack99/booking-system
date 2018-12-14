@@ -199,7 +199,8 @@ export default api => {
             const success = 'Great Things Happening.'
             localStorage.removeItem('booking');
             yield put(Actions.removeUserAppointment())
-            return yield put(Actions.cancelAppointmentSuccess(confirmRes.data.data, success))
+            yield put(Actions.cancelAppointmentSuccess(confirmRes.data.data, success))
+            yield put(push('/'));
 
         } else {
             error = path(['data', 'error_msg'], confirmRes) || error

@@ -191,16 +191,18 @@ class Detail extends Component {
   }
 
   cancel = () => {
-    localStorage.removeItem('booking');
-    this.setState({
-      anchorEl: null,
-      checkedCancel: !this.state.checkedCancel,
-      checkedReschedule: false,
-      booking: null
-    },() => {
-      this.props.cancelAppointmentRequest(this.state.booking._id);
-      this.props.push('/');
-    });
+    const id = this.state.booking._id;
+    this.props.cancelAppointmentRequest(id);
+    setTimeout(() => {
+      localStorage.removeItem('booking');
+      this.setState({
+        anchorEl: null,
+        checkedCancel: !this.state.checkedCancel,
+        checkedReschedule: false,
+        booking: null
+      });
+    }, 300);
+
   }
 
   goHello = () => {
