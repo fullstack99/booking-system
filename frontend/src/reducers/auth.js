@@ -131,10 +131,11 @@ const confirmRegisterAttempt = state => {
     })
 }
 
-const confirmRegisterSuccess = (state, { user }) => {
+const confirmRegisterSuccess = (state, { data }) => {
     return state.merge({
         uiLoadingIn: false,
-        user: user,
+        user: data.user,
+        token: data.token
     })
 }
 
@@ -158,6 +159,14 @@ const setUserAppointment = (state, { booking }) => {
     const newState = Immutable(state)
     return newState.merge({
         userAppointment: booking,
+    })
+}
+
+const getUserInfoSuccess = (state, { user }) => {
+    console.log('user213', user)
+    const newState = Immutable(state)
+    return newState.merge({
+        user: user
     })
 }
 
@@ -187,6 +196,7 @@ const ACTION_HANDLERS = {
     [Types.CONFIRM_REGISTER_FAILED]: confirmRegisterFailed,
     [Types.REMOVE_USER_APPOINTMENT]: removeUserAppointment,
     [Types.SET_USER_APPOINTMENT]: setUserAppointment,
+    [Types.GET_USER_INFO_SUCCESS]: getUserInfoSuccess,
     // Reset
     [Types.LOGOUT]: logout,
 }

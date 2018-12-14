@@ -120,27 +120,28 @@ const styles = theme => ({
   },
   dollar: {
     fontSize: 18,
+    fontWeight: 300,
     padding: 0,
     margin: 0,
-    fontFamily: 'Raleway SemiBold'
+    fontFamily: 'Raleway Regular'
   },
   date: {
     fontSize: 14,
     paddingTop: 7,
     margin: 0,
-    fontFamily: 'Raleway Light'
+    fontFamily: 'Raleway Regular'
   },
   number: {
     fontSize: 22,
     paddingTop: 0,
     margin: 0,
-    fontFamily: 'Raleway SemiBold'
+    fontFamily: 'Raleway Regular'
   },
   or: {
     width: '100%',
     textAlign: 'center',
     color: '#4e4f4f',
-    fontFamily: 'Raleway SemiBold'
+    fontFamily: 'Raleway Regular'
   },
   or1: {
     width: '100%',
@@ -171,6 +172,14 @@ const styles = theme => ({
     paddingTop: 20,
     fontFamily: 'Raleway Light'
   },
+  p4: {
+    fontSize: 18,
+    fontWeight: 300,
+    textAlign: 'center',
+    color: '#4e4f4f',
+    padding: '5px 0',
+    fontFamily: 'Raleway Light'
+  }
 })
 
 class Delivered extends Component {
@@ -208,7 +217,7 @@ class Delivered extends Component {
                   <div className={classes.grid1}>
                     <div className={classes.p1}>GLASSES PRESCRIPTION</div>
                     <div className={classes.or1}>or</div>
-                    <div className={classes.p1}>CONTACT LENS RENEWAL</div>
+                    <div className={classes.p4}>CONTACT LENS RENEWAL</div>
                     <div className={classes.box} onClick={this.checkType.bind(this, '$150/single exam')}>
                       <div className={classes.p1}>SINGLE EXAM</div>
                       <div className={classes.p1}>

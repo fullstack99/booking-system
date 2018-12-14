@@ -203,6 +203,7 @@ class Profile extends Component {
       email: '',
       firstName: '',
       lastName: '',
+      phone: '',
       creditCard: '',
       password: '',
       confirmPassword: '',
@@ -235,6 +236,9 @@ class Profile extends Component {
         break;
       case 'lastName':
         validate.lastNameError = !(this.state.lastName !== '')
+        break;
+      case 'phone':
+        validate.phoneError = !(this.state.phone !== '')
         break;
       case 'email':
         validate.emailError = !validateEmail(this.state.email)
@@ -292,7 +296,7 @@ class Profile extends Component {
   render() {
 
     const { classes, uiLoadingNew, user } = this.props;
-    const { emailError, passwordError, passwordMatch, firstNameError, lastNameError } = this.state;
+    const { emailError, passwordError, passwordMatch, firstNameError, lastNameError, phoneError } = this.state;
 
     return (
       <div className={classes.root}>
@@ -304,7 +308,7 @@ class Profile extends Component {
                 className={classes.back}
                 >
                 <ChevronLeftIcon />
-              </IconButton>Your Profile</div>
+              </IconButton>you</div>
           </div>
         </div>
         <div className={classes.contents}>
@@ -330,6 +334,14 @@ class Profile extends Component {
                     <Input id="reg-last-name-helper" className={classes.formInput} value={this.state.lastName} type="text" onChange={this.handleChange('lastName')} />
                     {lastNameError &&
                       <FormHelperText id="reg-last-name-error-text" className={classes.formError}>Required!</FormHelperText>
+                    }
+                  </FormControl>
+
+                  <FormControl className={classes.formControl} aria-describedby="reg-phone-helper-text">
+                    <InputLabel htmlFor="reg-phone-helper" className={classes.formLabel}>Phone #</InputLabel>
+                    <Input id="reg-phone-helper" className={classes.formInput} value={this.state.phone} type="text" onChange={this.handleChange('phone')} />
+                    {phoneError &&
+                      <FormHelperText id="reg-phone-error-text" className={classes.formError}>Required!</FormHelperText>
                     }
                   </FormControl>
 

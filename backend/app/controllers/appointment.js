@@ -8,7 +8,6 @@ const config = require('../config/config');
 module.exports = {
     create(req, res) {
         const appointment = new Appointment(req.body);
-        console.log(appointment);
         const mail = req.body.email
         const expiry = new Date();
         expiry.setDate(expiry.getDate() + 7);
@@ -31,8 +30,7 @@ module.exports = {
                     text: 'Booking Appointment',
                     html: `<strong>Date: </strong><p>${appointment.bookingDate} ${appointment.bookingTime}</p> </br>
                             <strong>appointment: </strong><p>${appointment.appointment}</p> </br>
-                            <strong>type: </strong><p>${appointment.type}</p> </br>
-                            <a href="http://localhost:4200/confirmed/${token}"></a>`,
+                            <strong>type: </strong><p>${appointment.type}</p> </br>`,
                 };
                 sgMail.send(msg)
                 res.status(200).send({ data: result });
@@ -82,7 +80,7 @@ module.exports = {
     },
 
     list(req, res) {
-        Appointment.find(function (err, appointments) {
+        Appointment.find({ bookingTime: {$ne:null} }, function (err, appointments) {
             if(err)
                 return res.status(500).send({ error: err });
 

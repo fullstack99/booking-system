@@ -10,6 +10,7 @@ import { withStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
 import Grow from '@material-ui/core/Grow'
 
+import { Creators as Actions } from '../actions';
 // Components
 
 const styles = theme => ({
@@ -126,6 +127,15 @@ class Intro extends Component {
     console.log('reschedule', reschedule)
     console.log('userAppointment', userAppointment)
     console.log('user', user)
+    if (user) {
+      this.props.getUserInfoRequest(user._id);
+    }
+
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps);
+    const { token, reschedule, userAppointment, user } = nextProps;
     if (token && !reschedule && userAppointment && user && user.isConfirm) {
       return this.props.push('/detail')
     }
@@ -133,10 +143,6 @@ class Intro extends Component {
     if (token && user && !user.isConfirm) {
       return this.props.push('/confirm-register')
     }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
   }
 
   navigate = to => () => {
@@ -192,6 +198,11 @@ Intro.propTypes = {
   classes: PropTypes.object.isRequired,
 }
 
+const {
+  pickDate,
+  getUserInfoRequest
+} = Actions;
+
 const mapStateToProps = ({
   auth: { uiLoadingIn, uiLoadingNew, token, user, userAppointment },
   user: { reschedule }
@@ -204,7 +215,8 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   push,
-  replace
+  replace,
+  getUserInfoRequest
 }, dispatch)
 
 export default compose(

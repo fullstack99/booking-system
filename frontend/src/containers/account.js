@@ -184,17 +184,20 @@ class Account extends Component {
   componentWillReceiveProps(nextProps) {
     console.log(nextProps);
     if (nextProps.isAuthenticated) {
-      if (nextProps.userAppointment && nextProps.user.isConfirm) {
-        return this.props.push('/detail')
-      }
+      setTimeout(() => {
+        if (nextProps.userAppointment && nextProps.user.isConfirm) {
+          return this.props.push('/detail')
+        }
 
-      if(nextProps.user.isConfirm && !nextProps.userAppointment) {
-        return this.props.push('/')
-      }
+        if (nextProps.user.isConfirm && !nextProps.userAppointment) {
+          return this.props.push('/')
+        }
 
-      if(!nextProps.user.isConfirm) {
-        return this.props.push('/confirm-register')
-      }
+        if(!nextProps.user.isConfirm) {
+          return this.props.push('/confirm-register')
+        }
+
+      }, 1000);
     }
     // if ((this.props.isAuthenticated || nextProps.isAuthenticated) && !this.props.user.isAdmin) {
     //   this.props.push('/profile');

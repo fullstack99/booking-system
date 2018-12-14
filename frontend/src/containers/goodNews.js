@@ -10,6 +10,7 @@ import { withStyles } from '@material-ui/core/styles'
 import Slide from '@material-ui/core/Slide'
 import IconButton from '@material-ui/core/IconButton';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+
 // Components
 
 const styles = theme => ({
@@ -100,7 +101,13 @@ class GoodNews extends Component {
       <div className={classes.root}>
         <div className={classes.contentHeader}>
           <div className={classes.container}>
-            <div className={classes.title}>good news</div>
+            <div className={classes.title}>
+              <IconButton
+                onClick={() => this.props.push('/detail')}
+                className={classes.back}
+                >
+                <ChevronLeftIcon />
+              </IconButton>good news</div>
             <div className={classes.link}>better vision awaits</div>
           </div>
         </div>
@@ -111,7 +118,7 @@ class GoodNews extends Component {
                 <div className={classes.in}>
                   <div className={classes.h1}>{user.GoodNewsTitle}</div>
                   {/* <div className={classes.p1}>{user.GoodNewsContent}</div> */}
-                  <div className={classes.p1}>Looks like you already have an exam pending<br/> Please login to reschedule or cancel your content appointment prior to booking a new exam.</div>
+                  <div className={classes.p1}>Looks like you already have an exam period<br/> Please reschedule or cancel your current appointment prior to booking a new exam.</div>
                 </div>
               </div>
             </Slide>

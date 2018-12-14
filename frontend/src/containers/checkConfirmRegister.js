@@ -100,23 +100,18 @@ class CheckConfirmRegister extends Component {
   componentWillMount() {
     const { user } = this.props;
     const token = this.props.match.params.token;
-    console.log(user);
-    this.props.confirmRegisterAttempt(token, user._id);
+    this.props.confirmRegisterAttempt(token);
   }
 
-
   render() {
-
     const { classes, user } = this.props
-    console.log(user)
-    if (user.isConfirm) {
+    if (user && user.isConfirm) {
       return (
         <Redirect to='/detail'  />
       )
     } else {
       return null
     }
-
   }
 }
 

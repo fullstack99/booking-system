@@ -94,8 +94,12 @@ class AdminAppointment extends Component {
   };
 
   getEndTime = startTime => {
-    const endTime = parseInt(startTime.substr(0, startTime.length - 1)) + 1 + ' : ' + startTime.substr(startTime.length - 3);
-    return endTime;
+    if (startTime) {
+      const endTime = parseInt(startTime.substr(0, startTime.length - 1)) + 1 + ' : ' + startTime.substr(startTime.length - 3);
+      return endTime;
+    } else {
+      return startTime
+    }
   }
 
   render() {

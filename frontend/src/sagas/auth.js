@@ -1,5 +1,6 @@
 import { path, prop } from 'ramda'
 // import { delay } from 'redux-saga'
+import { push } from 'react-router-redux';
 import { take, put, call, fork, cancel, cancelled, select, takeLatest } from 'redux-saga/effects'
 import { Types, Creators as Actions } from '../actions'
 
@@ -18,11 +19,13 @@ export default api => {
                 localStorage.setItem('token', authResp.data.token);
                 if (authResp.data.appointment) {
                     localStorage.setItem('booking', JSON.stringify(authResp.data.appointment));
+                    yield put(Actions.bookingSuccess(authResp.data.appointment, success))
                 }
                 const state = yield select();
                 const data = state.user;
                 const user = authResp.data.user;
                 let error = 'Booking failed.'
+                console.log('data=====>', data)
                 if (data.bookingTime && data.bookingDate) {
                     const bookingRes = yield call(api.appointment, {
                         appointment: user.firstName + ' ' + user.lastName,
@@ -35,8 +38,9 @@ export default api => {
                     })
                     console.log('bookingRes', bookingRes)
                     if (bookingRes.ok) {
-                        const success = 'Great Things Happening'
-                        return yield put(Actions.bookingSuccess(bookingRes.data.data, success))
+                        localStorage.setItem('booking', JSON.stringify(bookingRes.data.data));
+                        yield put(Actions.bookingSuccess(bookingRes.data.data, success))
+                        yield put(Actions.setUserAppointment(bookingRes.data.data, success));
                     } else {
                         error = path(['data', 'error_msg'], bookingRes) || error
                         yield put(Actions.bookingFailure(error))
@@ -149,8 +153,7 @@ export default api => {
         console.log(forgotRes)
         if (forgotRes.ok) {
             const success = 'Great Things Happening'
-            yield put(Actions.forgotSuccess(forgotRes.data.data, success))
-            this.props.push('/confirm-register');
+            yield put(Actions.forgotSuccess(forgotRes.data, success))
         } else {
             error = path(['data', 'error_msg'], forgotRes) || error
             yield put(Actions.forgotFailed(error))
@@ -203,13 +206,12 @@ export default api => {
         console.log(data);
         let error = 'Something went wrong.'
         const userInfoRes = yield call(api.confirmRegister, {
-            token: data.token,
-            userId: data.userId
+            token: data.token
         });
         console.log('userInfoRes', userInfoRes)
         if (userInfoRes.ok) {
             const success = 'Great Things Happening.'
-            return yield put(Actions.confirmRegisterSuccess(userInfoRes.data.data, success))
+            return yield put(Actions.confirmRegisterSuccess(userInfoRes.data, success))
         } else {
             error = path(['data', 'error_msg'], userInfoRes) || error
             yield put(Actions.confirmRegisterFailed(error))

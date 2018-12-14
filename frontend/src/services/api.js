@@ -117,11 +117,11 @@ export default {
     getUsers: () => api.get(ENDPOINT.USERSLIST),
     getUserInfo: userId => api.get(`user/${userId}`),
     updateUserInfo: data => api.put(`user/${data.userId}`, data.photo),
-    forgotPassword: email => api.post(`${ENDPOINT.FORGOTPASSWORD}`, email),
+    forgotPassword: email => api.post(`${ENDPOINT.FORGOTPASSWORD}`, {email: email}),
     resetPassword: data => api.post(`${ENDPOINT.RESETPASSWORD}`, data),
     confirmAppointment: token => api.post(`${ENDPOINT.CONFIRMAPPOINTMENT}`, token),
     updateUserProfile: data => api.put(`user/profile/${data.userId}`, data.data),
     cancelAppointment: id => api.put(`appointment/cancel/${id}`),
     sendEmail: data => api.post('user/send-message', data),
-    confirmRegister: data => api.put(`user/confirm/${data.userId}`, {token: data.token}),
+    confirmRegister: data => api.put(`user/confirm/${data.token}`),
 }

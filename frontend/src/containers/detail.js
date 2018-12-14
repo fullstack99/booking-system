@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators, compose } from 'redux'
 import { push, replace } from 'react-router-redux'
-
+import moment from 'moment';
 // Material UI
 import { withStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
@@ -120,8 +120,17 @@ const styles = theme => ({
   },
   label: {
     display: 'block',
-    marginBottom: 30
+    marginBottom: 30,
+    // display: 'flex',
+    // justifyContent: 'space-between'
+  },
+  span1: {
+    marginLeft: 16
+  },
+  span2: {
+    marginLeft: 30
   }
+
 })
 
 class Detail extends Component {
@@ -140,8 +149,6 @@ class Detail extends Component {
     const booking = JSON.parse(localStorage.getItem('booking'));
     this.setState({ booking });
     const { user } = this.props;
-    console.log(123)
-    console.log('user', user);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -149,7 +156,6 @@ class Detail extends Component {
     this.setState({ booking });
 
     const cancelAppointment = nextProps.cancelAppointment;
-    console.log('cancelAppointment', cancelAppointment)
     if (cancelAppointment) {
       localStorage.removeItem('booking');
       this.props.push('/');
@@ -214,7 +220,7 @@ class Detail extends Component {
         <div className={classes.contentHeader}>
           <div className={classes.container}>
             <div className={classes.title}>your next visit</div>
-            <div className={classes.date} onClick={this.seletOption}>{ booking && (booking.bookingDate + '/' + booking.bookingTime + '/' + (new Date()).getFullYear())}</div>
+            <div className={classes.date} onClick={this.seletOption}>{ booking && moment(new Date(booking.bookingDate + '/' + (new Date()).getFullYear())).format('MMMM DD, YYYY')}</div>
             {
               booking && <Popover
                 id="simple-popper"
@@ -232,8 +238,8 @@ class Detail extends Component {
 
               >
                 <div className={classes.popover}>
-                  <label className={classes.label}>PLACE:</label>
-                  <label className={classes.label}>TIME:</label>
+                  <label className={classes.label}>PLACE: <span className={classes.span1}>{booking.location}</span></label>
+                  <label className={classes.label}>TIME: <span className={classes.span2}>{booking.bookingTime}</span></label>
                   <div className={classes.action}>
                     <div>
                       <label>CANCEL</label>
@@ -267,7 +273,7 @@ class Detail extends Component {
 
               <div className={classes.userInfo} onClick={() => this.navigate('/profile')}>
                 <img src={this.props.user.pictureUrl ? this.props.user.pictureUrl : Avatar} className={classes.avatar} alt='' />
-                <div className={classes.userName}>{user.firstName} {user.lastName}</div>
+                {/* <div className={classes.userName}>{user.firstName} {user.lastName}</div> */}
                 <div className={classes.userName}>{user.email}</div>
               </div>
 

@@ -35,6 +35,7 @@ const styles = theme => ({
     padding: '30px 0',
     textAlign: 'center',
     borderBottom: '3px solid #cfe1e3',
+    marginBottom: 80
   },
   content: {
     width: '100%',
@@ -134,7 +135,17 @@ const styles = theme => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center'
-  }
+  },
+  link: {
+    lineHeight: 2,
+    fontSize: 12,
+    color: '#8bb4c2',
+    marginTop: 80,
+    marginBottom: 40
+  },
+  progress: {
+    margin: theme.spacing.unit * 2,
+  },
 })
 
 class PickDate extends Component {
@@ -281,11 +292,12 @@ class PickDate extends Component {
     const { classes, user } = this.props;
     const { settings, dates, thisMonth, NextMonth, times, settedDate, settedTime } = this.state;
 
-    if (user.isFetched) {
+    if (user.isFetched && dates.length > 0 ) {
       return (
         <div className={classes.root}>
           <div className={classes.container}>
-            <div className={classes.title}>When would you like your exam? <br/>just let know</div>
+            <div className={classes.title}>when would you like your exam?</div>
+            <div className={classes.link}>just let us know</div>
           </div>
           <div className={classes.content}>
             <p className={classes.month}>{thisMonth} / {NextMonth}</p>

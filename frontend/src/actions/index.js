@@ -58,10 +58,11 @@ export const { Types, Creators } = createActions({
 	sendEmailRequest: ['data'],
 	sendEmailSuccess: ['data', 'success'],
 	sendEmailFailed: ['error'],
-	confirmRegisterAttempt: ['token', 'userId'],
-	confirmRegisterSuccess: ['user', 'success'],
+	confirmRegisterAttempt: ['token'],
+	confirmRegisterSuccess: ['data', 'success'],
 	confirmRegisterFailed: ['error'],
 	removeUserAppointment: null,
 	setUserAppointment: ['booking', 'success'],
+	getUserInfoSuccess: ['user']
 
 })

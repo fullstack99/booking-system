@@ -313,7 +313,7 @@ class Prescription extends Component {
                 <div className={classes.tabs}>
                   <span className={classes.tab} onClick={() => this.setState({ value: 0 })}>glasses</span>
                   <span className={classes.between}>|</span>
-                  <span className={classes.tab} onClick={() => this.setState({ value: 1 })}>contacts</span>
+                  <span className={classes.tab} onClick={() => this.setState({ value: 0 })}>contacts</span>
                 </div>
                 { value === 0 &&
                   <React.Fragment>
