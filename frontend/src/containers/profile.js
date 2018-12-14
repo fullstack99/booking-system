@@ -260,20 +260,22 @@ class Profile extends Component {
   }
 
   handleUpdateSubmit() {
-    const { firstName, lastName, email, password, confirmPassword, firstNameError, lastNameError, emailError, passwordError, passwordMatch } = this.state
+    const { firstName, lastName, email, password, phone, creditCard, confirmPassword, firstNameError, lastNameError, emailError, passwordError, passwordMatch } = this.state
 
     if (firstName !== '' && lastName !== '' && email !== '' && !emailError && !passwordError && !passwordMatch && !firstNameError && !lastNameError) {
       const data = new FormData();
       data.append('email', email);
       data.append('firstName', firstName);
       data.append('lastName', lastName);
-      console.log(this.state.selectedFile);
+      data.append('phone', phone);
+      data.append('creditCard', creditCard);
+
       if ( this.state.selectedFile) {
         data.append('photo', this.state.selectedFile, this.state.selectedFile.name);
       }
 
       if (password) {
-        data.append(password, password);
+        data.append('password', password);
       }
       this.props.updateUserProfileRequest(data, this.props.user._id);
     }
