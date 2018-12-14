@@ -194,7 +194,6 @@ class UserDetail extends Component {
   }
 
   componentWillMount() {
-    console.log(12312312)
     const userId = this.props.match.params.userId;
     this.setState({userId: userId})
     this.props.getUserDetailInfoRequest(userId)

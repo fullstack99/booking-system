@@ -148,7 +148,7 @@ class AdminAppointment extends Component {
                             >
                               <option value="">Select Action</option>
                               <option value="cancel">Cancel Appointment</option>
-                              <option value="reschedule">Reschedule </option>
+                              <option value="cancel">Reschedule </option>
                             </Select>
                           </TableCell>
                         </TableRow>

@@ -79,7 +79,6 @@ const styles = theme => ({
     fontSize: 15,
     lineHeight: 3,
     fontFamily: 'Raleway ExtraLight',
-    textAlign: 'center',
     color: '#757575',
   },
   back: {
