@@ -117,6 +117,7 @@ export default api => {
     function* getUserInfo(data) {
         let error = 'Something went wrong.'
         const userInfoRes = yield call(api.getUserInfo, data.userId);
+        console.log('userInfoRes', userInfoRes)
         if (userInfoRes.ok) {
             const success = 'Great Things Happening'
             return yield put(Actions.getUserInfoSuccess(userInfoRes.data.data, success))
@@ -139,6 +140,7 @@ export default api => {
         console.log('userInfoRes', userInfoRes)
         if (userInfoRes.ok) {
             const success = 'Great Things Happening'
+            yield put(Actions.getUserInfoSuccess(userInfoRes.data.data))
             return yield put(Actions.updateUserInfoSuccess(userInfoRes.data.data, success))
             // return yield put(push('/admin/user'));
         } else {

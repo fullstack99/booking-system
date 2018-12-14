@@ -57,7 +57,7 @@ module.exports = function(app, passport) {
     app.put('/api/user/:userId', upload.single('photo'), User.update);
     app.put('/api/user/profile/:userId', upload.single('photo'), User.updateProfile);
     app.post('/api/user/send-message', User.sendMessage);
-    app.put('/api/user/confirm/:userId', User.confirm);
+    app.put('/api/user/confirm/:token', User.confirm);
 
     app.post('/api/appointment', Appointment.create);
     app.put('/api/appointment', Appointment.update);

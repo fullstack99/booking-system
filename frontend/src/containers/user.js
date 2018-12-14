@@ -288,9 +288,9 @@ class User extends Component {
               <Route exact path="/appointment" component={Appointment} />
               <Route exact path="/forgot" component={Forgot} />
               <Route exact path="/reset" component={ResetPassword} />
+              <Route exact path="/confirm-register/:token" component={CheckConfirmRegister} />
               <PrivateRoute exact path="/confirm-register" canAccess={isAuthenticated} component={ConfirmRegister} />
               <PrivateRoute exact path="/good-news" canAccess={isAuthenticated} component={GoodNews} />
-              <PrivateRoute exact path="/confirm-register/:token" canAccess={isAuthenticated} component={CheckConfirmRegister} />
               <PrivateRoute exact path="/confirmed/:token" canAccess={isAuthenticated} component={ConfirmAppointment} />
               <PrivateRoute exact path="/detail" canAccess={isAuthenticated} component={Detail} />
               <PrivateRoute exact path="/profile" canAccess={isAuthenticated} component={Profile} />

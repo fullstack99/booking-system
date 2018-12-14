@@ -124,6 +124,7 @@ module.exports = {
     },
 
     forgotPassword(req, res) {
+        console.log(req.body.email);
         const msg = {
             to: req.body.email,
             from: 'noreply@wgv.com',
@@ -171,7 +172,6 @@ module.exports = {
                             if (error) {
                                 return res.status(500).send({ error: error });
                             } else {
-                                console.log(user)
                                 res.status(200).send({ data: user });
                             }
                         })
@@ -196,7 +196,6 @@ module.exports = {
     },
 
     sendMessage(req, res) {
-        console.log(req.body)
         const msg = {
             to: req.body.email,
             from: req.body.userMail,
@@ -209,18 +208,22 @@ module.exports = {
     },
 
     confirm(req, res) {
-        User.findById(req.params.userId, function (err, user) {
+        User.findOne({ token: req.params.token}, function (err, user) {
             if (err) {
                 return res.status(500).send({ error: err });
             }
-
+            console.log(user)
             if (user) {
                 user.isConfirm = true;
+                const token = user.generateJwt();
                 user.save(function (err, result) {
                     if (err) {
                         res.status(500).send({ error: err });
                     } else {
-                        res.status(200).send({ data: result });
+                        res.status(200).send({
+                            user: result,
+                            token: token
+                        });
                     }
                 })
             } else {
