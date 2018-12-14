@@ -163,29 +163,6 @@ const getUsersFailed =  (state, { error }) => {
     })
 }
 
-const getUserInfoRequest = state => {
-    const newState = Immutable(state)
-    return newState.merge({
-        isFetching: true,
-        userInfo: null
-    })
-}
-
-const getUserInfoSuccess = (state, { user }) => {
-    return state.merge({
-        userInfo: user,
-        isFetching: false,
-        isFetched: true
-    })
-}
-
-const getUserInfoFailed =  (state, { error }) => {
-    return state.merge({
-        isFetching: false,
-        isFetched: true,
-        error: error,
-    })
-}
 
 const updateUserInfoRequest = state => {
     const newState = Immutable(state)
@@ -289,6 +266,30 @@ const setReschedule = (state) => {
     })
 }
 
+const getUserDetailInfoRequest = state => {
+    const newState = Immutable(state)
+    return newState.merge({
+        isFetching: true,
+        userInfo: null
+    })
+}
+
+const getUserDetailInfoSuccess = (state, { user }) => {
+    return state.merge({
+        userInfo: user,
+        isFetching: false,
+        isFetched: true
+    })
+}
+
+const getUserDetailInfoFailed =  (state, { error }) => {
+    return state.merge({
+        isFetching: false,
+        isFetched: true,
+        error: error,
+    })
+}
+
 // map our types to our handlers
 const ACTION_HANDLERS = {
     [Types.SET_SUBSCRIPTION_TYPE]: setSubscriptionType,
@@ -308,9 +309,6 @@ const ACTION_HANDLERS = {
     [Types.GET_USERS_REQUEST]: getUsersRequest,
     [Types.GET_USERS_SUCCESS]: getUsersSuccess,
     [Types.GET_USERS_FAILED]: getUsersFailed,
-    [Types.GET_USER_INFO_REQUEST]: getUserInfoRequest,
-    [Types.GET_USER_INFO_SUCCESS]: getUserInfoSuccess,
-    [Types.GET_USER_INFO_FAILED]: getUserInfoFailed,
     [Types.UPDATE_USER_INFO_REQUEST]: updateUserInfoRequest,
     [Types.UPDATE_USER_INFO_SUCCESS]: updateUserInfoSuccess,
     [Types.UPDATE_USER_INFO_FAILED]: updateUserInfoFailed,
@@ -323,7 +321,10 @@ const ACTION_HANDLERS = {
     [Types.SEND_EMAIL_REQUEST]: sendEmailRequest,
     [Types.SEND_EMAIL_SUCCESS]: sendEmailSuccess,
     [Types.SEND_EMAIL_FAILED]: sendEmailFailed,
-    [Types.SET_RESCHEDULE]: setReschedule
+    [Types.SET_RESCHEDULE]: setReschedule,
+    [Types.GET_USER_DETAIL_INFO_REQUEST]: getUserDetailInfoRequest,
+    [Types.GET_USER_DETAIL_INFO_SUCCESS]: getUserDetailInfoSuccess,
+    [Types.GET_USER_DETAIL_INFO_FAILED]: getUserDetailInfoFailed,
 
 
 }

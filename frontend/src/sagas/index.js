@@ -19,15 +19,16 @@ export default function* root() {
 		auth(api).watchResetFlow(),
 		auth(api).watchUserUpdateFlow(),
 		auth(api).watchConfirmRegisterFlow(),
+		auth(api).watchUserInfoFlow(),
 		user(api).watchSetBook(),
 		user(api).getAppointments(),
 		user(api).watchUserAppointment(),
 		user(api).watchUsers(),
-		user(api).watchUserInfo(),
 		user(api).watchUpdateUserInfo(),
 		user(api).watchBookingDates(),
 		user(api).watchConfirmAppointment(),
 		user(api).watchCancelAppointmentRequest(),
-		user(api).watchSendEmailRequest()
+		user(api).watchSendEmailRequest(),
+		user(api).watchUserDetailInfoRequest()
   ])
 }

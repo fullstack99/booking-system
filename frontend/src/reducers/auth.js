@@ -162,11 +162,26 @@ const setUserAppointment = (state, { booking }) => {
     })
 }
 
-const getUserInfoSuccess = (state, { user }) => {
-    console.log('user213', user)
+const getUserInfoRequest = state => {
     const newState = Immutable(state)
     return newState.merge({
-        user: user
+        isFetching: true,
+    })
+}
+
+const getUserInfoSuccess = (state, { user }) => {
+    return state.merge({
+        user: user,
+        isFetching: false,
+        isFetched: true
+    })
+}
+
+const getUserInfoFailed =  (state, { error }) => {
+    return state.merge({
+        isFetching: false,
+        isFetched: true,
+        error: error,
     })
 }
 
@@ -196,7 +211,9 @@ const ACTION_HANDLERS = {
     [Types.CONFIRM_REGISTER_FAILED]: confirmRegisterFailed,
     [Types.REMOVE_USER_APPOINTMENT]: removeUserAppointment,
     [Types.SET_USER_APPOINTMENT]: setUserAppointment,
+    [Types.GET_USER_INFO_REQUEST]: getUserInfoRequest,
     [Types.GET_USER_INFO_SUCCESS]: getUserInfoSuccess,
+    [Types.GET_USER_INFO_FAILED]: getUserInfoFailed,
     // Reset
     [Types.LOGOUT]: logout,
 }

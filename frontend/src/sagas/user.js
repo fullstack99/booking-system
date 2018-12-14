@@ -114,23 +114,6 @@ export default api => {
         yield takeLatest(Types.GET_USERS_REQUEST, getUsers);
     }
 
-    function* getUserInfo(data) {
-        let error = 'Something went wrong.'
-        const userInfoRes = yield call(api.getUserInfo, data.userId);
-        console.log('userInfoRes', userInfoRes)
-        if (userInfoRes.ok) {
-            const success = 'Great Things Happening'
-            return yield put(Actions.getUserInfoSuccess(userInfoRes.data.data, success))
-        } else {
-            error = path(['data', 'error_msg'], userInfoRes) || error
-            yield put(Actions.getUserInfoFailed(error))
-        }
-    }
-
-    function* watchUserInfo() {
-        yield takeLatest(Types.GET_USER_INFO_REQUEST, getUserInfo);
-    }
-
     function* updateUserInfo({ data, userId }) {
         let error = 'Something went wrong.'
         const userInfoRes = yield call(api.updateUserInfo, {
@@ -140,7 +123,7 @@ export default api => {
         console.log('userInfoRes', userInfoRes)
         if (userInfoRes.ok) {
             const success = 'Great Things Happening'
-            yield put(Actions.getUserInfoSuccess(userInfoRes.data.data))
+            // yield put(Actions.getUserInfoSuccess(userInfoRes.data.data))
             return yield put(Actions.updateUserInfoSuccess(userInfoRes.data.data, success))
             // return yield put(push('/admin/user'));
         } else {
@@ -237,16 +220,33 @@ export default api => {
         yield takeLatest(Types.SEND_EMAIL_REQUEST, sendEmail);
     }
 
+    function* getUserDetailInfo(data) {
+        let error = 'Something went wrong.'
+        const userInfoRes = yield call(api.getUserInfo, data.userId);
+        console.log('userInfoRes', userInfoRes)
+        if (userInfoRes.ok) {
+            const success = 'Great Things Happening'
+            return yield put(Actions.getUserDetailInfoSuccess(userInfoRes.data.data, success))
+        } else {
+            error = path(['data', 'error_msg'], userInfoRes) || error
+            yield put(Actions.getUserDetailInfoFailed(error))
+        }
+    }
+
+    function* watchUserDetailInfoRequest() {
+        yield takeLatest(Types.GET_USER_DETAIL_INFO_REQUEST, getUserDetailInfo);
+    }
+
 	return {
         watchSetBook,
         getAppointments,
         watchUserAppointment,
         watchUsers,
-        watchUserInfo,
         watchUpdateUserInfo,
         watchBookingDates,
         watchConfirmAppointment,
         watchCancelAppointmentRequest,
-        watchSendEmailRequest
+        watchSendEmailRequest,
+        watchUserDetailInfoRequest
 	}
 }

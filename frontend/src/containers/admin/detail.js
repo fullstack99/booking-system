@@ -185,18 +185,23 @@ class UserDetail extends Component {
       selectedFile: null,
       notify: false,
       open: false,
+      firstName: '',
+      lastName: '',
+      email: ''
 
     }
     this.handleselectedFile = this.handleselectedFile.bind(this);
   }
 
   componentWillMount() {
+    console.log(12312312)
     const userId = this.props.match.params.userId;
     this.setState({userId: userId})
-    this.props.getUserInfoRequest(userId)
+    this.props.getUserDetailInfoRequest(userId)
   }
 
   componentWillReceiveProps(nextProps) {
+    console.log('nextProps', nextProps);
     if (nextProps.user.isFetched) {
       this.setState({...nextProps.user.userInfo}, () => {
         delete this.state.password;
@@ -216,8 +221,9 @@ class UserDetail extends Component {
         validate.doctorNameError = !(this.state.doctorName !== '')
         break;
       case 'license':
-        validate.licenseError = !(this.state.doctorName !== '')
+        validate.licenseError = !(this.state.license !== '')
         break;
+
       default:
         break;
     }
@@ -233,7 +239,7 @@ class UserDetail extends Component {
   }
 
   handleSubmit = () => {
-    if (!this.state.doctorNameError && this.state.doctorName) {
+    if (!this.state.doctorNameError && this.state.doctorName && !this.state.licenseError && this.state.license) {
       const data = new FormData();
 
       const keys = Object.keys(this.state);
@@ -250,9 +256,6 @@ class UserDetail extends Component {
 
       this.props.updateUserInfoRequest(data, this.state.userId);
 
-    } else {
-      this.setState({ doctorNameError: true });
-      return
     }
 
   }
@@ -280,7 +283,7 @@ class UserDetail extends Component {
   render() {
     const { classes, user, theme, clearNotification, notification } = this.props;
     const { doctorNameError, licenseError } = this.state;
-    console.log(this.state);
+    console.log('user detail', this.state);
     if (user.isFetched && user.userInfo) {
       return (
         <React.Fragment>
@@ -504,7 +507,7 @@ UserDetail.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-const { getUserInfoRequest, updateUserInfoRequest, clearNotification } = Actions;
+const { getUserDetailInfoRequest, updateUserInfoRequest, clearNotification } = Actions;
 
 function mapStateToProps(state) {
   return {
@@ -516,7 +519,7 @@ function mapStateToProps(state) {
 const mapDispatchToProps = dispatch => bindActionCreators({
   push,
   replace,
-  getUserInfoRequest,
+  getUserDetailInfoRequest,
   updateUserInfoRequest,
 }, dispatch)
 

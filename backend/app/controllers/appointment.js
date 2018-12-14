@@ -101,7 +101,7 @@ module.exports = {
     },
 
     list(req, res) {
-        Appointment.find({ bookingTime: {$ne:null} }, function (err, appointments) {
+        Appointment.find({ status: {$ne: 'cancel'} }, function (err, appointments) {
             if(err)
                 return res.status(500).send({ error: err });
 
@@ -139,6 +139,8 @@ module.exports = {
             }
             if (appointment) {
                 appointment.status = 'cancel';
+                appointment.bookingDate = null;
+                appointment.bookingTime = null;
                 appointment.save(function (err, result) {
                     if (err) {
                         res.status(500).send({ error: err });

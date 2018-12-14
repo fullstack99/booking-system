@@ -222,6 +222,23 @@ export default api => {
         yield takeLatest(Types.CONFIRM_REGISTER_ATTEMPT, confirmRegister);
     }
 
+    function* getUserInfo(data) {
+        let error = 'Something went wrong.'
+        const userInfoRes = yield call(api.getUserInfo, data.userId);
+        console.log('userInfoRes', userInfoRes)
+        if (userInfoRes.ok) {
+            const success = 'Great Things Happening'
+            return yield put(Actions.getUserInfoSuccess(userInfoRes.data.data, success))
+        } else {
+            error = path(['data', 'error_msg'], userInfoRes) || error
+            yield put(Actions.getUserInfoFailed(error))
+        }
+    }
+
+    function* watchUserInfoFlow() {
+        yield takeLatest(Types.GET_USER_INFO_REQUEST, getUserInfo);
+    }
+
     return {
         loginFlow,
         logoutFlow,
@@ -229,6 +246,7 @@ export default api => {
         watchForgotFlow,
         watchResetFlow,
         watchUserUpdateFlow,
-        watchConfirmRegisterFlow
+        watchConfirmRegisterFlow,
+        watchUserInfoFlow
     }
 }
