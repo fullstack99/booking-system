@@ -18,7 +18,7 @@ module.exports = {
             if (appointment) {
                 const msg = {
                     to: mail,
-                    from: 'noreply@gmail.com',
+                    from: 'noreply@wgv.com',
                     subject: 'Appointment',
                     text: 'Booking Appointment',
                     html: ` <stron>You have already one appointment</stron></br>
@@ -44,7 +44,7 @@ module.exports = {
                     } else {
                         const msg = {
                             to: mail,
-                            from: 'noreply@gmail.com',
+                            from: 'noreply@wgv.com',
                             subject: 'Appointment',
                             text: 'Booking Appointment',
                             html: `<strong>Date: </strong><p>${appointment.bookingDate} ${appointment.bookingTime}</p> </br>

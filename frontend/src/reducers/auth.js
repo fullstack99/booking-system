@@ -154,8 +154,6 @@ const removeUserAppointment = (state) => {
 }
 
 const setUserAppointment = (state, { booking }) => {
-    console.log(state);
-    console.log(booking);
     const newState = Immutable(state)
     return newState.merge({
         userAppointment: booking,

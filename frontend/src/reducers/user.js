@@ -48,7 +48,8 @@ const bookingSuccess = (state, { booking }) => {
     return state.merge({
         booking: booking,
         bookingDate: null,
-        bookingTime: null
+        bookingTime: null,
+        reschedule: false
     })
 }
 
