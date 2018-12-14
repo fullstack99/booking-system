@@ -62,8 +62,17 @@ class AdminAppointment extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    let data = []
     if (nextProps.user.isFetched) {
-      this.setState({ data: nextProps.user.appointments });
+      console.log(nextProps.user.appointments)
+      if(nextProps.user.appointments && nextProps.user.appointments.length > 0) {
+        nextProps.user.appointments.map(item => {
+          if (item.status != 'cancel') {
+            data.push(item)
+          }
+        })
+        this.setState({ data: data });
+      }
     }
   }
 
