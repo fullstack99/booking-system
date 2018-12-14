@@ -7,33 +7,50 @@ const config = require('../config/config');
 
 module.exports = {
     create(req, res) {
-        const appointment = new Appointment(req.body);
-        const mail = req.body.email
-        const expiry = new Date();
-        expiry.setDate(expiry.getDate() + 7);
-        const token = jwt.sign({
-            email: mail,
-            exp: parseInt(expiry.getTime() / 1000),
-        }, "MY_SECRET");
+        const mail = req.body.email;
 
-        appointment.confirmToken = token;
-
-        appointment.save(function (err, result) {
-            if (err) {
-                return res.status(500).send({ error: err });
-            } else {
-                sgMail.setApiKey(config.mail.key);
+        appointment.findOne({_uesr: req.body._user}, function(error, appointment) {
+            if (appointment) {
                 const msg = {
                     to: mail,
                     from: 'noreply@gmail.com',
                     subject: 'Appointment',
                     text: 'Booking Appointment',
-                    html: `<strong>Date: </strong><p>${appointment.bookingDate} ${appointment.bookingTime}</p> </br>
+                    html: ` <stron>You have already one appointment</stron></br>
+                            <strong>Date: </strong><p>${appointment.bookingDate} ${appointment.bookingTime}</p> </br>
                             <strong>appointment: </strong><p>${appointment.appointment}</p> </br>
                             <strong>type: </strong><p>${appointment.type}</p> </br>`,
                 };
                 sgMail.send(msg)
-                res.status(200).send({ data: result });
+                res.status(200).send({ data: appointment });
+            } else {
+                const appointment = new Appointment(req.body);
+                const expiry = new Date();
+                expiry.setDate(expiry.getDate() + 7);
+                const token = jwt.sign({
+                    email: mail,
+                    exp: parseInt(expiry.getTime() / 1000),
+                }, "MY_SECRET");
+
+                appointment.confirmToken = token;
+                appointment.save(function (err, result) {
+                    if (err) {
+                        return res.status(500).send({ error: err });
+                    } else {
+                        sgMail.setApiKey(config.mail.key);
+                        const msg = {
+                            to: mail,
+                            from: 'noreply@gmail.com',
+                            subject: 'Appointment',
+                            text: 'Booking Appointment',
+                            html: `<strong>Date: </strong><p>${appointment.bookingDate} ${appointment.bookingTime}</p> </br>
+                                    <strong>appointment: </strong><p>${appointment.appointment}</p> </br>
+                                    <strong>type: </strong><p>${appointment.type}</p> </br>`,
+                        };
+                        sgMail.send(msg)
+                        res.status(200).send({ data: result });
+                    }
+                })
             }
         })
     },
@@ -118,8 +135,6 @@ module.exports = {
             }
             if (appointment) {
                 appointment.status = 'cancel';
-                appointment.bookingTime = null;
-                appointment.bookingDate = null;
                 appointment.save(function (err, result) {
                     if (err) {
                         res.status(500).send({ error: err });

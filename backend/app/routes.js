@@ -11,7 +11,11 @@ module.exports = function(app, passport) {
     app.post('/api/users/login',
         passport.authenticate('local-login'), function(req, res) {
             if(req.user) {
-                AppointmentModel.findOne({_user: req.user._id } , function (err, appointment) {
+                AppointmentModel.findOne({
+                    $and: [
+                        {_user: req.user._id},
+                        {status: {$ne: 'cancel'}}
+                    ]} , function (err, appointment) {
                     if (err) {
                         res.status(200).send({
                             user: req.user,
