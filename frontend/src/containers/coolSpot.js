@@ -252,7 +252,7 @@ class CoolSport extends Component {
       <div className={classes.root}>
         <div className={classes.contentHeader}>
           <div className={classes.container}>
-            <div className={classes.title}>in a really cool sport nearby</div>
+            <div className={classes.title}>in a really cool spot nearby</div>
             <div className={classes.link}>you gotta 'see'</div>
           </div>
         </div>

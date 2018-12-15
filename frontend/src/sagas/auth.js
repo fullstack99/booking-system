@@ -107,7 +107,9 @@ export default api => {
                     console.log('bookingRes', bookingRes)
                     if (bookingRes.ok) {
                         const success = 'Great Things Happening'
-                        return yield put(Actions.bookingSuccess(bookingRes.data.data, success))
+                        localStorage.setItem('booking', JSON.stringify(bookingRes.data.data));
+                        yield put(Actions.bookingSuccess(bookingRes.data.data, success))
+                        return yield put(Actions.setUserAppointment(bookingRes.data.data, success));
                     } else {
                         error = path(['data', 'error_msg'], bookingRes) || error
                         yield put(Actions.bookingFailure(error))
