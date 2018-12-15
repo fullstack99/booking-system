@@ -212,8 +212,12 @@ export default api => {
         });
         console.log('userInfoRes', userInfoRes)
         if (userInfoRes.ok) {
-            const success = 'Great Things Happening.'
-            return yield put(Actions.confirmRegisterSuccess(userInfoRes.data, success))
+            const success = 'Great Things Happening'
+            if (userInfoRes.data.appointment) {
+                localStorage.setItem('booking', JSON.stringify(userInfoRes.data.appointment));
+                yield put(Actions.bookingSuccess(userInfoRes.data.appointment, success))
+            }
+            yield put(Actions.confirmRegisterSuccess(userInfoRes.data, success))
         } else {
             error = path(['data', 'error_msg'], userInfoRes) || error
             yield put(Actions.confirmRegisterFailed(error))

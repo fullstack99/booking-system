@@ -135,7 +135,8 @@ const confirmRegisterSuccess = (state, { data }) => {
     return state.merge({
         uiLoadingIn: false,
         user: data.user,
-        token: data.token
+        token: data.token,
+        userAppointment: data.userAppointment
     })
 }
 

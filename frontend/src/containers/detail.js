@@ -100,6 +100,16 @@ const styles = theme => ({
     cursor: 'pointer',
     fontFamily: 'Raleway Regular'
   },
+  mytab: {
+    fontSize: 15,
+    fontWeight: 500,
+    textAlign: 'center',
+    cursor: 'pointer',
+    fontFamily: 'Raleway Regular',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+  },
   cont: {
     padding: 20,
     display: 'block'
@@ -295,7 +305,7 @@ class Detail extends Component {
                   <div className={classes.tab} onClick={() => this.navigate('/glasses')}>MY GLASSES</div>
                 </Grid>
                 <Grid item xs={4}>
-                  <div className={classes.tab} onClick={() => this.navigate('/prescription')}>MY PRESCRIPTION</div>
+                  <div className={classes.mytab} onClick={() => this.navigate('/prescription')}>MY PRESCRIPTION</div>
                 </Grid>
                 <Grid item xs={4}>
                   <div className={classes.tab} onClick={() => this.navigate('/vision')}>MY VISION</div>

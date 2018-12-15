@@ -4,6 +4,7 @@ const _ = require('lodash');
 const sgMail = require('@sendgrid/mail');
 
 const User = require('../models/user');
+const Appointment = require('../models/appointment');
 const fileUpload = require('../services/fileUpload');
 const config = require('../config/config');
 sgMail.setApiKey(config.mail.key);
@@ -218,13 +219,35 @@ module.exports = {
                 const token = user.generateJwt();
                 user.save(function (err, result) {
                     if (err) {
-                        res.status(500).send({ error: err });
-                    } else {
-                        res.status(200).send({
-                            user: result,
-                            token: token
-                        });
+                        return res.status(500).send({ error: err });
                     }
+                    Appointment.findOne({
+                        $and: [
+                            {_user: result._id},
+                            {status: {$ne: 'cancel'}}
+                        ]} , function (err, appointment) {
+                        if (err) {
+                            return res.status(200).send({
+                                user: result,
+                                appointment: null,
+                                token: token
+                            })
+                        }
+                        if (appointment) {
+                            res.status(200).send({
+                                user: result,
+                                appointment: appointment,
+                                token: token
+                            })
+                        } else {
+                            res.status(200).send({
+                                user: result,
+                                appointment: null,
+                                token: token
+                            })
+                        }
+
+                    });
                 })
             } else {
                 res.status(404).send({ error: 'Not found' });
