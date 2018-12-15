@@ -232,13 +232,12 @@ class Detail extends Component {
     const { anchorEl, booking } = this.state;
     const open = Boolean(anchorEl);
 
-    console.log('booking', booking)
     return (
       <div className={classes.root}>
         <div className={classes.contentHeader}>
           <div className={classes.container}>
             <div className={classes.title}>your next visit</div>
-            <div className={classes.date} onClick={this.seletOption}>{ booking && moment(new Date(booking.bookingDate + '/' + (new Date()).getFullYear())).format('MMMM DD, YYYY')}</div>
+            <div className={classes.date} onClick={this.seletOption}>{ booking && moment(new Date(booking.bookingDate + ',' + (new Date()).getFullYear())).format('MMMM DD, YYYY')}</div>
             {
               booking && <Popover
                 id="simple-popper"

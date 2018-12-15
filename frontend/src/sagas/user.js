@@ -12,8 +12,6 @@ export default api => {
         const data = state.user;
         const user = state.auth.user;
         let error = 'Something went wrong.'
-        console.log('data', data);
-        console.log('user', user)
         if (user) {
             let bookingId;
             let bookingRes;
@@ -155,7 +153,6 @@ export default api => {
     }
 
     function* confirmAppointment(data) {
-        console.log(data);
         let error = 'Something went wrong.'
         const confirmRes = yield call(api.confirmAppointment, {token: data.token})
 
@@ -174,7 +171,6 @@ export default api => {
     }
 
     function* cancelAppointmentRequest(data) {
-        console.log(data);
         let error = 'Something went wrong.'
         const confirmRes = yield call(api.cancelAppointment, data.id)
 

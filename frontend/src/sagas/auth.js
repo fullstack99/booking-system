@@ -11,7 +11,6 @@ export default api => {
         try {
             let error = 'Something Went Wrong.'
             const authResp = yield call(api.auth, user)
-            console.log('authResp', authResp);
             // Did user login?
             if (authResp.ok) {
                 const success = 'Great Things Happening.'
@@ -25,7 +24,6 @@ export default api => {
                 const data = state.user;
                 const user = authResp.data.user;
                 let error = 'Booking failed.'
-                console.log('data=====>', data)
                 if (data.bookingTime && data.bookingDate) {
                     const bookingRes = yield call(api.appointment, {
                         appointment: user.firstName + ' ' + user.lastName,
@@ -36,7 +34,7 @@ export default api => {
                         email: user.email,
                         _user: user._id
                     })
-                    console.log('bookingRes', bookingRes)
+                    console.log('create bookingRes', bookingRes)
                     if (bookingRes.ok) {
                         localStorage.setItem('booking', JSON.stringify(bookingRes.data.data));
                         yield put(Actions.bookingSuccess(bookingRes.data.data, success))
@@ -85,7 +83,6 @@ export default api => {
         try {
             let error = 'Something went wrong.'
             const registerResp = yield call(api.register, user)
-            console.log('registerResp', registerResp)
             if (registerResp.ok) {
                 const success = 'Great Things Happening.'
                 yield put(Actions.loginAuthSuccess(registerResp.data, success))
@@ -149,10 +146,8 @@ export default api => {
     }
 
     function* forgotFlow(data) {
-        console.log(data.email);
         let error = 'Something went wrong.'
         const forgotRes = yield call(api.forgotPassword, data.email);
-        console.log(forgotRes)
         if (forgotRes.ok) {
             const success = 'Great Things Happening'
             yield put(Actions.forgotSuccess(forgotRes.data, success))
@@ -170,7 +165,7 @@ export default api => {
         console.log(data);
         let error = 'Something went wrong.'
         const resetRes = yield call(api.resetPassword, data.data);
-        console.log(resetRes)
+
         if (resetRes.ok) {
             const success = 'Great Things Happening'
             return yield put(Actions.resetSuccess(resetRes.data.data, success))
@@ -205,7 +200,6 @@ export default api => {
     }
 
     function* confirmRegister(data) {
-        console.log(data);
         let error = 'Something went wrong.'
         const userInfoRes = yield call(api.confirmRegister, {
             token: data.token
