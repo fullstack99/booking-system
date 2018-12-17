@@ -187,7 +187,8 @@ class UserDetail extends Component {
       open: false,
       firstName: '',
       lastName: '',
-      email: ''
+      email: '',
+      phone: ''
 
     }
     this.handleselectedFile = this.handleselectedFile.bind(this);
@@ -288,17 +289,21 @@ class UserDetail extends Component {
         <React.Fragment>
           <Paper className={classes.paper}>
             <h3>Uer info</h3>
-            <FormControl className={classes.formControl} aria-describedby="lens-helper-text">
-              <InputLabel htmlFor="lens-helper" className={classes.formLabel}>First Name</InputLabel>
-              <Input id="lens-helper" className={classes.formInput} value={this.state.firstName} defaultValue={this.state.firstName} type="text" onChange={this.handleChange('firstName')} />
+            <FormControl className={classes.formControl} aria-describedby="firstName-helper-text">
+              <InputLabel htmlFor="firstName-helper" className={classes.formLabel}>First Name</InputLabel>
+              <Input id="firstName-helper" className={classes.formInput} readOnly={true} value={this.state.firstName} defaultValue={this.state.firstName} type="text" onChange={this.handleChange('firstName')} />
+            </FormControl>
+            <FormControl className={classes.formControl} aria-describedby="lastName-helper-text">
+              <InputLabel htmlFor="lastName-helper" className={classes.formLabel}>Last Name</InputLabel>
+              <Input id="lastName-helper" className={classes.formInput} readOnly={true} value={this.state.lastName} defaultValue={this.state.lastName} type="text" onChange={this.handleChange('lastName')} />
+            </FormControl>
+            <FormControl className={classes.formControl} aria-describedby="email-helper-text">
+              <InputLabel htmlFor="email-helper" className={classes.formLabel}>Email</InputLabel>
+              <Input id="email-helper" className={classes.formInput} readOnly={true} value={this.state.email} defaultValue={this.state.email} type="text" onChange={this.handleChange('email')} />
             </FormControl>
             <FormControl className={classes.formControl} aria-describedby="lens-helper-text">
-              <InputLabel htmlFor="lens-helper" className={classes.formLabel}>Last Name</InputLabel>
-              <Input id="lens-helper" className={classes.formInput} value={this.state.lastName} defaultValue={this.state.lastName} type="text" onChange={this.handleChange('lastName')} />
-            </FormControl>
-            <FormControl className={classes.formControl} aria-describedby="lens-helper-text">
-              <InputLabel htmlFor="lens-helper" className={classes.formLabel}>Email</InputLabel>
-              <Input id="lens-helper" className={classes.formInput} value={this.state.email} defaultValue={this.state.email} type="text" onChange={this.handleChange('email')} />
+              <InputLabel htmlFor="phone-helper" className={classes.formLabel}>Phone</InputLabel>
+              <Input id="phone-helper" className={classes.formInput} readOnly={true} value={this.state.phone} defaultValue={this.state.phone} type="text" onChange={this.handleChange('phone')} />
             </FormControl>
             <Divider />
             <h3>Glasses</h3>
