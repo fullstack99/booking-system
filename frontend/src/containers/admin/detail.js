@@ -217,10 +217,10 @@ class UserDetail extends Component {
 
     switch (name) {
       case 'doctorName':
-        validate.doctorNameError = !(this.state.doctorName !== '')
+        validate.doctorNameError = !(event.target.value !== '')
         break;
       case 'license':
-        validate.licenseError = !(this.state.license !== '')
+        validate.licenseError = !(event.target.value !== '')
         break;
 
       default:
@@ -243,7 +243,7 @@ class UserDetail extends Component {
 
       const keys = Object.keys(this.state);
       keys.forEach(key => {
-        if ( key == 'selectedFile' || key == 'pictureUrl' || key == '_id' || key == '__v' || key == 'userId' || key == 'notify' || key == 'open') {
+        if ( key == 'selectedFile' || key == 'glassUrl' || key == '_id' || key == '__v' || key == 'userId' || key == 'notify' || key == 'open') {
           return;
         } else {
           data.append(key, this.state[key]);
@@ -267,10 +267,10 @@ class UserDetail extends Component {
     var url = reader.readAsDataURL(selectedFile);
 
     reader.onloadend = function (e) {
-        this.setState({
-          pictureUrl: [reader.result]
-        })
-      }.bind(this);
+      this.setState({
+        glassUrl: [reader.result]
+      })
+    }.bind(this);
   }
 
   closeNotification = () => {
@@ -304,9 +304,9 @@ class UserDetail extends Component {
             <h3>Glasses</h3>
             <Grid container className={classes.grid} justify="center">
               <Grid item xs={12} md={6} className={classes.gridImage}>
-                <img className={classes.img} src={this.state.pictureUrl} alt='' />
+                <img className={classes.img} src={this.state.glassUrl} alt='' />
                 <input type="file" onChange={this.handleselectedFile} className={classes.file}/>
-                <p className={this.state.pictureUrl ? classes.altCommentHidden : classes.altComment} >Please upload file</p>
+                <p className={this.state.glassUrl ? classes.altCommentHidden : classes.altComment} >Please upload file</p>
               </Grid>
               <Grid item xs={12} md={6} className={classes.gridx}>
                 <FormControl className={classes.formControl} aria-describedby="lens-helper-text">

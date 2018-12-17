@@ -93,7 +93,7 @@ const styles = theme => ({
     textAlign: 'left'
   },
   itemActivity: {
-  //  backgroundColor: '#ffffff',
+    //  backgroundColor: '#ffffff',
     padding: 10,
     textAlign: 'left'
   },
@@ -129,7 +129,7 @@ const styles = theme => ({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    width: 170,
+    width: 190,
     height: 120,
     border: '1px solid white',
     margin: '20px 0',
@@ -140,7 +140,7 @@ const styles = theme => ({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    width: 170,
+    width: 190,
     height: 120,
     border: '2px solid #ffffff',
     margin: '20px 0',
@@ -211,7 +211,31 @@ class CoolSport extends Component {
 
     this.state = {
       type: '',
-      location: ''
+      location: -1,
+      addressOne: [
+        'downtown LA',
+        'Long Beach',
+        'Santa Monica',
+        'Manhattan Beach',
+        'Hollywood',
+        'Culver City',
+        'Playa Vista',
+        'La Brea',
+        'Burbank',
+        'Pasadena'
+      ],
+      addressTwo: [
+        '555 West 5th Street, 34th floor',
+        '100 W Broadway',
+        '520 BroadWay 312 Arizona Ave',
+        '1240 Rosecrans Ave',
+        '7083 Hollywood Blvd',
+        '5792 West Jefferson Blvd',
+        '12655 W. Jefferson Blvd',
+        '925 N La Brea Ave, 4th floor',
+        '3900 W Alameda Ave',
+        '177 E Colorado Blvd'
+      ]
     }
   }
 
@@ -220,10 +244,11 @@ class CoolSport extends Component {
   }
 
   checkType(value, event) {
-    this.setState({ type: value});
-    if(this.state.location !== '') {
+    this.setState({ type: value });
+    if (this.state.location !== -1) {
       const data = {
-        location: this.state.location,
+        addressOne: this.state.addressOne[this.state.location],
+        addressTwo: this.state.addressTwo[this.state.location],
         type: value
       }
       this.props.setSubscriptionType(data);
@@ -233,10 +258,16 @@ class CoolSport extends Component {
   }
 
   checkLocatoin(value, event) {
-    this.setState({ location: value});
-    if(this.state.type !== '') {
+    this.setState({ location: value });
+    const data = {
+      addressOne: this.state.addressOne[value],
+      addressTwo: this.state.addressTwo[value],
+      type: this.state.type
+    }
+    if (this.state.type !== '') {
       const data = {
-        location: value,
+        addressOne: this.state.addressOne[value],
+        addressTwo: this.state.addressTwo[value],
         type: this.state.type
       }
       this.props.setSubscriptionType(data);
@@ -246,7 +277,8 @@ class CoolSport extends Component {
 
   render() {
 
-    const { classes } = this.props
+    const { classes } = this.props;
+    const { addressOne, addressTwo } = this.state;
 
     return (
       <div className={classes.root}>
@@ -261,68 +293,38 @@ class CoolSport extends Component {
             <Slide direction="left" in={true} mountOnEnter unmountOnExit>
               <Grid container className={classes.grid} justify="center">
                 <Grid item xs={12} md={6} className={classes.grid1}>
-                  <div className={ this.state.location === 'downtown LA' ? classes.itemActivity : classes.item}  onClick={this.checkLocatoin.bind(this, 'downtown LA')}>
-                    <div className={this.state.location === 'downtown LA' ? classes.h1Activity : classes.h1}>downtown LA</div>
-                    <div className={this.state.location === 'downtown LA' ? classes.h2Activity : classes.h2}>555 West 5th Street, 34th floor</div>
-                  </div>
-                  <div className={ this.state.location === 'Long Beach' ? classes.itemActivity : classes.item} onClick={this.checkLocatoin.bind(this, 'Long Beach')}>
-                    <div className={this.state.location === 'Long Beach' ? classes.h1Activity : classes.h1}>Long Beach</div>
-                    <div className={this.state.location === 'Long Beach' ? classes.h2Activity : classes.h2}>100 W Broadway</div>
-                  </div>
-                  <div className={ this.state.location === 'Santa Monica' ? classes.itemActivity : classes.item} onClick={this.checkLocatoin.bind(this, 'Santa Monica')}>
-                    <div className={this.state.location === 'Santa Monica' ? classes.h1Activity : classes.h1}>Santa Monica</div>
-                    <div className={this.state.location === 'Santa Monica' ? classes.h2Activity : classes.h2}>520 BroadWay 312 Arizona Ave</div>
-                  </div>
-                  <div className={ this.state.location === 'Manhattan Beach' ? classes.itemActivity : classes.item} onClick={this.checkLocatoin.bind(this, 'Manhattan Beach')}>
-                    <div className={this.state.location === 'Manhattan Beach' ? classes.h1Activity : classes.h1}>Manhattan Beach</div>
-                    <div className={this.state.location === 'Manhattan Beach' ? classes.h2Activity : classes.h2}>1240 Rosecrans Ave</div>
-                  </div>
-                  <div className={ this.state.location === 'Hollywood' ? classes.itemActivity : classes.item} onClick={this.checkLocatoin.bind(this, 'Hollywood')}>
-                    <div className={this.state.location === 'Hollywood' ? classes.h1Activity : classes.h1}>Hollywood</div>
-                    <div className={this.state.location === 'Hollywood' ? classes.h2Activity : classes.h2}>7083 Hollywood Blvd</div>
-                  </div>
-                  <div className={ this.state.location === 'Culver City' ? classes.itemActivity : classes.item} onClick={this.checkLocatoin.bind(this, 'Culver City')}>
-                    <div className={this.state.location === 'Culver City' ? classes.h1Activity : classes.h1}>Culver City</div>
-                    <div className={this.state.location === 'Culver City' ? classes.h2Activity : classes.h2}>5792 West Jefferson Blvd</div>
-                  </div>
-                  <div className={ this.state.location === 'Playa Vista' ? classes.itemActivity : classes.item} onClick={this.checkLocatoin.bind(this, 'Playa Vista')}>
-                    <div className={this.state.location === 'Playa Vista' ? classes.h1Activity : classes.h1}>Playa Vista</div>
-                    <div className={this.state.location === 'Playa Vista' ? classes.h2Activity : classes.h2}>12655 W. Jefferson Blvd</div>
-                  </div>
-                  <div className={ this.state.location === 'La Brea' ? classes.itemActivity : classes.item} onClick={this.checkLocatoin.bind(this, 'La Brea')}>
-                    <div className={this.state.location === 'La Brea' ? classes.h1Activity : classes.h1}>La Brea</div>
-                    <div className={this.state.location === 'La Brea' ? classes.h2Activity : classes.h2}>925 N La Brea Ave, 4th floor</div>
-                  </div>
-                  <div className={ this.state.location === 'Burbank' ? classes.itemActivity : classes.item} onClick={this.checkLocatoin.bind(this, 'Burbank')}>
-                    <div className={this.state.location === 'Burbank' ? classes.h1Activity : classes.h1}>Burbank</div>
-                    <div className={this.state.location === 'Burbank' ? classes.h2Activity : classes.h2}>3900 W Alameda Ave</div>
-                  </div>
-                  <div className={ this.state.location === 'Pasadena' ? classes.itemActivity : classes.item} onClick={this.checkLocatoin.bind(this, 'Pasadena')}>
-                    <div className={this.state.location === 'Pasadena' ? classes.h1Activity : classes.h1}>Pasadena</div>
-                    <div className={this.state.location === 'Pasadena' ? classes.h2Activity : classes.h2}>177 E Colorado Blvd</div>
-                  </div>
+                  {
+                    addressOne.map((address, index) => {
+                      return (
+                        <div key={index} className={this.state.location === index ? classes.itemActivity : classes.item} onClick={this.checkLocatoin.bind(this, index)}>
+                          <div className={this.state.location === index ? classes.h1Activity : classes.h1}>{address}</div>
+                          <div className={this.state.location === index ? classes.h2Activity : classes.h2}>{addressTwo[index]}</div>
+                        </div>
+                      )
+                    })
+                  }
                 </Grid>
                 <Grid item xs={12} md={6} className={classes.grid2}>
-                  <div className={ this.state.type === '$80/single exam' ? classes.boxActivity : classes.box} onClick={this.checkType.bind(this, '$80/single exam')}>
-                    <div className={ this.state.type === '$80/single exam' ? classes.p1Activity : classes.p1} >SINGLE EXAM</div>
-                    <div className={ this.state.type === '$80/single exam' ? classes.p1Activity : classes.p1} >
+                  <div className={this.state.type === '$80/single exam' ? classes.boxActivity : classes.box} onClick={this.checkType.bind(this, '$80/single exam')}>
+                    <div className={this.state.type === '$80/single exam' ? classes.p1Activity : classes.p1} >SINGLE EXAM</div>
+                    <div className={this.state.type === '$80/single exam' ? classes.p1Activity : classes.p1} >
                       <p className={classes.dollar}>$</p>
                       <p className={classes.number}>80</p>
                     </div>
                   </div>
                   <div className={classes.or}>
                     or
-                      </div>
-                  <div className={ this.state.type === '$14.00/month' ? classes.boxActivity : classes.box} onClick={this.checkType.bind(this, '$14.00/month')}>
-                    <div className={ this.state.type === '$14.00/month' ? classes.p1Activity : classes.p1} >VISIONAIRE</div>
-                    <div className={ this.state.type === '$14.00/month' ? classes.p2Activity : classes.p2}>( subscription )</div>
-                    <div className={ this.state.type === '$14.00/month' ? classes.p1Activity : classes.p1} >
+                  </div>
+                  <div className={this.state.type === '$14.00/month' ? classes.boxActivity : classes.box} onClick={this.checkType.bind(this, '$14.00/month')}>
+                    <div className={this.state.type === '$14.00/month' ? classes.p1Activity : classes.p1} >VISIONAIRE</div>
+                    <div className={this.state.type === '$14.00/month' ? classes.p2Activity : classes.p2}>( subscription )</div>
+                    <div className={this.state.type === '$14.00/month' ? classes.p1Activity : classes.p1} >
                       <p className={classes.dollar}>$</p>
                       <p className={classes.number}>14.</p>
                       <p className={classes.dollar}>00</p>
                       <p className={classes.date}>/month</p>
                     </div>
-                    <div className={ this.state.type === '$14.00/month' ? classes.p2Activity : classes.p2}>Exam (annual) + Glasses (cool)</div>
+                    <div className={this.state.type === '$14.00/month' ? classes.p2Activity : classes.p2}>Exam (annual) + Glasses (cool)</div>
                   </div>
                 </Grid>
               </Grid>

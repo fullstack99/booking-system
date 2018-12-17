@@ -229,25 +229,25 @@ class Account extends Component {
 
   handleChange = name => event => {
     const validate = {};
-
+    console.log(event.target.value)
     switch (name) {
       case 'email':
-        validate.emailError = !validateEmail(this.state.email)
+        validate.emailError = !validateEmail(event.target.value)
         break;
       case 'password':
-        validate.passwordError = !validatePassword(this.state.password)
+        validate.passwordError = !validatePassword(event.target.value)
         break;
       case 'regFirstName':
-        validate.regFirstNameError = !(this.state.regFirstName !== '')
+        validate.regFirstNameError = !(event.target.value !== '')
         break;
       case 'regLastName':
-        validate.regLastNameError = !(this.state.regLastName !== '')
+        validate.regLastNameError = !(event.target.value !== '')
         break;
       case 'regEmail':
-        validate.regEmailError = !validateEmail(this.state.regEmail)
+        validate.regEmailError = !validateEmail(event.target.value)
         break;
       case 'regPassword':
-        validate.regPasswordError = !validatePassword(this.state.regPassword)
+        validate.regPasswordError = !validatePassword(event.target.value)
         break;
       case 'regConfirmPassword':
         validate.regPasswordMatch = !(this.state.regPassword === event.target.value)
@@ -298,7 +298,7 @@ class Account extends Component {
     const { classes, uiLoadingIn, uiLoadingNew, token } = this.props
 
     const { emailError, passwordError, regEmailError, regPasswordError, regPasswordMatch, regFirstNameError, regLastNameError } = this.state
-
+console.log(this.state);
     return (
       <div className={classes.root}>
         <div className={classes.contentHeader}>
@@ -333,7 +333,7 @@ class Account extends Component {
                   <div className={classes.actions}>
                     <div className={classes.action}>
                       <Checkbox color="primary" value={this.state.remember} onChange={this.setRemember}/>
-                      Remomber Me
+                      Remember Me
                     </div>
                     <Link to="/forgot" className={classes.action}>Forgot Password?</Link>
                   </div>

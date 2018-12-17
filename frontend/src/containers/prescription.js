@@ -176,7 +176,8 @@ const styles = theme => ({
   },
   back: {
     backgroundColor: 'transparent',
-    color: '#8bb4c2'
+    color: '#8bb4c2',
+    marginLeft: -45
   },
   formLabel: {
     color: '#303031 !important',

@@ -134,7 +134,7 @@ const styles = theme => ({
   drawerPaper: {
     position: 'relative',
     width: drawerWidth,
-    color: 'white'
+    color: '#303031'
   },
   drawerHeader: {
     display: 'flex',
@@ -160,6 +160,9 @@ const styles = theme => ({
   },
   list: {
     paddingLeft: 10
+  },
+  icon: {
+    color: '#303031'
   }
 })
 
@@ -233,7 +236,7 @@ class User extends Component {
         }}
       >
         <div className={classes.drawerHeader}>
-          <IconButton onClick={this.handleDrawerClose}>
+          <IconButton onClick={this.handleDrawerClose} className={classes.icon}>
             <ChevronLeftIcon />
           </IconButton>
         </div>

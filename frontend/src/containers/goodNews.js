@@ -39,6 +39,7 @@ const styles = theme => ({
   },
   title: {
     fontSize: 40,
+    fontWeight: 300,
     color: '#757575',
     [theme.breakpoints.down('md')]: {
       fontSize: 30,
@@ -84,7 +85,8 @@ const styles = theme => ({
   },
   back: {
     backgroundColor: 'transparent',
-    color: '#8bb4c2'
+    color: '#8bb4c2',
+    marginLeft: -45
   },
   confirmMail: {
     color: '#8bb4c2',
@@ -118,7 +120,7 @@ class GoodNews extends Component {
                 <div className={classes.in}>
                   <div className={classes.h1}>{user.GoodNewsTitle}</div>
                   {/* <div className={classes.p1}>{user.GoodNewsContent}</div> */}
-                  <div className={classes.p1}>Looks like you already have an exam period<br/> Please reschedule or cancel your current appointment prior to booking a new exam.</div>
+                  <div className={classes.p1}>Looks like you already have an exam pending.<br/> Please reschedule or cancel your current appointment prior to booking a new exam.</div>
                 </div>
               </div>
             </Slide>

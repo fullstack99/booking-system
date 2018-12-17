@@ -134,6 +134,24 @@ const styles = theme => ({
     // display: 'flex',
     // justifyContent: 'space-between'
   },
+  location: {
+    marginLeft: 16
+  },
+  labelLocation: {
+    display: 'flex',
+    alignItems: 'baseline',
+    marginBottom: 30
+  },
+  addressOne: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    lineHeight: 1.5,
+    fontFamily: 'Raleway Regular'
+  },
+  addressTwo: {
+    fontSize: 14,
+    fontFamily: 'Raleway Regular'
+  },
   span1: {
     marginLeft: 16
   },
@@ -151,14 +169,16 @@ class Detail extends Component {
     this.state = {
       anchorEl: null,
       booking: null,
-      checkedCancel: false
+      checkedCancel: false,
+      prescriptionTab: 'MY PRESCRIPTION'
     }
+    this.myInput = React.createRef()
   }
 
   componentWillMount() {
     const booking = JSON.parse(localStorage.getItem('booking'));
     this.setState({ booking });
-    const { user } = this.props;
+
   }
 
   componentWillReceiveProps(nextProps) {
@@ -172,6 +192,11 @@ class Detail extends Component {
     //   this.setState({ booking: null });
     //   this.props.push('/');
     // }
+  }
+  componentDidMount() {
+    if (this.myInput.current.offsetWidth < 150) {
+      this.setState({ prescriptionTab: 'MY Script'})
+    }
   }
 
   navigate = to => {
@@ -255,7 +280,11 @@ class Detail extends Component {
 
               >
                 <div className={classes.popover}>
-                  <label className={classes.label}>PLACE: <span className={classes.span1}>{booking.location}</span></label>
+                  <label className={classes.labelLocation}>PLACE:
+                    <div className={classes.location}>
+                      <span className={classes.addressOne}>{booking.addressOne}</span><br/><span className={classes.addressTwo}>{booking.addressTwo}</span>
+                    </div>
+                  </label>
                   <label className={classes.label}>TIME: <span className={classes.span2}>{
                     parseInt(booking.bookingTime) > 12 ?
                       parseInt(booking.bookingTime.substr(0, booking.bookingTime.length - 1)) - 12 + ' : ' + booking.bookingTime.substr(booking.bookingTime.length - 3) + ' pm'
@@ -304,7 +333,7 @@ class Detail extends Component {
                   <div className={classes.tab} onClick={() => this.navigate('/glasses')}>MY GLASSES</div>
                 </Grid>
                 <Grid item xs={4}>
-                  <div className={classes.mytab} onClick={() => this.navigate('/prescription')}>MY PRESCRIPTION</div>
+                  <div className={classes.mytab} ref={this.myInput} onClick={() => this.navigate('/prescription')}>{this.state.prescriptionTab}</div>
                 </Grid>
                 <Grid item xs={4}>
                   <div className={classes.tab} onClick={() => this.navigate('/vision')}>MY VISION</div>

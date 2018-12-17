@@ -182,7 +182,8 @@ const styles = theme => ({
   },
   back: {
     backgroundColor: 'transparent',
-    color: '#8bb4c2'
+    color: '#8bb4c2',
+    marginLeft: -45
   },
 })
 
@@ -204,7 +205,6 @@ class Profile extends Component {
       firstName: '',
       lastName: '',
       phone: '',
-      creditCard: '',
       password: '',
       confirmPassword: '',
       emailError: false,
@@ -223,7 +223,8 @@ class Profile extends Component {
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
-      pictureUrl: user.pictureUrl
+      pictureUrl: user.pictureUrl,
+      phone: user.phone
     });
   }
 
@@ -232,19 +233,19 @@ class Profile extends Component {
 
     switch (name) {
       case 'firstName':
-        validate.firstNameError = !(this.state.firstName !== '')
+        validate.firstNameError = !(event.target.value !== '')
         break;
       case 'lastName':
-        validate.lastNameError = !(this.state.lastName !== '')
+        validate.lastNameError = !(event.target.value !== '')
         break;
       case 'phone':
-        validate.phoneError = !(this.state.phone !== '')
+        validate.phoneError = !(event.target.value !== '')
         break;
       case 'email':
-        validate.emailError = !validateEmail(this.state.email)
+        validate.emailError = !validateEmail(event.target.value)
         break;
       case 'password':
-        validate.passwordError = !validatePassword(this.state.password)
+        validate.passwordError = !validatePassword(event.target.value)
         break;
       case 'confirmPassword':
         validate.passwordMatch = !(this.state.password === event.target.value)
@@ -260,7 +261,7 @@ class Profile extends Component {
   }
 
   handleUpdateSubmit() {
-    const { firstName, lastName, email, password, phone, creditCard, confirmPassword, firstNameError, lastNameError, emailError, passwordError, passwordMatch } = this.state
+    const { firstName, lastName, email, password, phone, confirmPassword, firstNameError, lastNameError, emailError, passwordError, passwordMatch } = this.state
 
     if (firstName !== '' && lastName !== '' && email !== '' && !emailError && !passwordError && !passwordMatch && !firstNameError && !lastNameError) {
       const data = new FormData();
@@ -268,9 +269,8 @@ class Profile extends Component {
       data.append('firstName', firstName);
       data.append('lastName', lastName);
       data.append('phone', phone);
-      data.append('creditCard', creditCard);
 
-      if ( this.state.selectedFile) {
+      if (this.state.selectedFile) {
         data.append('photo', this.state.selectedFile, this.state.selectedFile.name);
       }
 
@@ -353,11 +353,6 @@ class Profile extends Component {
                     {emailError &&
                       <FormHelperText id="reg-email-error-text" className={classes.formError}>Invalid Email!</FormHelperText>
                     }
-                  </FormControl>
-
-                  <FormControl className={classes.formControl} aria-describedby="reg-credit-card-helper-text">
-                    <InputLabel htmlFor="reg-credit-card-helper" className={classes.formLabel}>Credit Card</InputLabel>
-                    <Input id="reg-credit-card-helper" className={classes.formInput} value={this.state.creditCard} type="text" onChange={this.handleChange('creditCard')} />
                   </FormControl>
 
                   <FormControl className={classes.formControl} aria-describedby="reg-password-helper-text">

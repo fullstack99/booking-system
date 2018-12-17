@@ -55,6 +55,7 @@ class AdminUser extends Component {
         { id: 'firstName', label: 'First Name' },
         { id: 'lastName', label: 'Last Name' },
         { id: 'email', label: 'Email' },
+        { id: 'phone', label: 'Phone'},
         { id: 'doctorName', label: 'Doctor Name'}
       ]
     }
@@ -140,6 +141,7 @@ class AdminUser extends Component {
                             {n.lastName}
                           </TableCell>
                           <TableCell>{n.email}</TableCell>
+                          <TableCell>{n.phone}</TableCell>
                           <TableCell component="th" scope="row">
                             {n.doctorName}
                           </TableCell>

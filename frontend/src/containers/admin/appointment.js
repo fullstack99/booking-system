@@ -30,6 +30,14 @@ const styles = theme => ({
   button: {
     margin: theme.spacing.unit,
   },
+  addressOne: {
+    fontWeight: 'bold',
+    lineHeight: 1.5,
+    fontFamily: 'Raleway Regular'
+  },
+  addressTwo: {
+    fontFamily: 'Raleway Regular'
+  },
 });
 
 class AdminAppointment extends Component {
@@ -46,8 +54,8 @@ class AdminAppointment extends Component {
       open: false,
       rows: [
         { id: 'appointment', label: 'Appointment For' },
-        { id: 'start', label: 'Start Time' },
-        { id: 'end', label: 'End Time' },
+        { id: 'start', label: 'Date/Time booked' },
+        { id: 'end', label: 'Date/Time of appointment' },
         { id: 'type', label: 'Sub Subscription Type' },
         { id: 'status', label: 'Appointment Status:' },
         { id: 'location', label: 'Location' },
@@ -145,7 +153,10 @@ class AdminAppointment extends Component {
                           <TableCell>{n.bookingDate + ' ' + this.getEndTime(n.bookingTime)}</TableCell>
                           <TableCell>{n.type}</TableCell>
                           <TableCell>{n.status}</TableCell>
-                          <TableCell>{n.location}</TableCell>
+                          <TableCell>
+                            <span className={classes.addressOne}>{n.addressOne},</span><br/>
+                            <span className={classes.addressTwo}>{n.addressTwo}</span>
+                          </TableCell>
                           <TableCell>
                             <Select
                               native

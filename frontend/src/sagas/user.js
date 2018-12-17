@@ -22,7 +22,8 @@ export default api => {
                 bookingRes = yield call(api.updateSelectedAppointment, {
                     id: bookingId,
                     appointment: user.firstName + ' ' + user.lastName,
-                    location: data.location,
+                    addressOne: data.addressOne,
+                    addressTwo: data.addressTwo,
                     bookingTime: data.bookingTime,
                     bookingDate: data.bookingDate,
                     type: data.type,
@@ -32,7 +33,8 @@ export default api => {
             } else {
                 bookingRes = yield call(api.appointment, {
                     appointment: user.firstName + ' ' + user.lastName,
-                    location: data.location,
+                    addressOne: data.addressOne,
+                    addressTwo: data.addressTwo,
                     bookingTime: data.bookingTime,
                     bookingDate: data.bookingDate,
                     type: data.type,

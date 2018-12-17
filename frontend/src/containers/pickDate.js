@@ -35,7 +35,6 @@ const styles = theme => ({
     padding: '30px 0',
     textAlign: 'center',
     borderBottom: '3px solid #cfe1e3',
-    marginBottom: 80
   },
   content: {
     width: '100%',
@@ -140,8 +139,7 @@ const styles = theme => ({
     lineHeight: 2,
     fontSize: 12,
     color: '#8bb4c2',
-    marginTop: 80,
-    marginBottom: 40
+    marginTop: 40,
   },
   progress: {
     margin: theme.spacing.unit * 2,
@@ -292,7 +290,7 @@ class PickDate extends Component {
     const { classes, user } = this.props;
     const { settings, dates, thisMonth, NextMonth, times, settedDate, settedTime } = this.state;
 
-    if (user.isFetched && dates.length > 0 ) {
+    if (user.isFetched && dates.length > 0) {
       return (
         <div className={classes.root}>
           <div className={classes.container}>
@@ -304,7 +302,7 @@ class PickDate extends Component {
             <Slider {...settings}>
               {
                 dates.map((item, index) => {
-                  return(
+                  return (
                     <div key={index} className={settedDate === item.date ? classes.itemActivity : classes.item} onClick={() => this.setBookingDate(item.date)} >
                       <p className={classes.day}>{item.day}</p>
                       <p className={settedDate === item.date ? classes.dateActivity : classes.date} >{item.date}</p>
@@ -319,9 +317,9 @@ class PickDate extends Component {
                 {
                   times.length > 0 ?
                     times.map((time, index) => {
-                      if(parseInt(time) < 12 ) {
+                      if (parseInt(time) < 12) {
                         return (
-                          <Button key={index} className={settedTime === time ? classes.timeActivity :classes.time} onClick={() =>this.setBookingTime(time)} disabled={!settedDate}>
+                          <Button key={index} className={settedTime === time ? classes.timeActivity : classes.time} onClick={() => this.setBookingTime(time)} disabled={!settedDate}>
                             {time} am
                           </Button>
                         )
@@ -330,7 +328,7 @@ class PickDate extends Component {
                       }
 
                     })
-                  : <p> There is no availability</p>
+                    : <p> There is no availability</p>
                 }
               </Grid>
 
@@ -339,9 +337,9 @@ class PickDate extends Component {
                 {
                   times.length > 0 ?
                     times.map((time, index) => {
-                      if(parseInt(time) >= 12 && parseInt(time) < 17 && parseInt(time) != 16 && parseInt(time) != 12) {
+                      if (parseInt(time) >= 12 && parseInt(time) < 17 && parseInt(time) != 16 && parseInt(time) != 12) {
                         return (
-                          <Button key={index} className={settedTime === time ? classes.timeActivity :classes.time} onClick={() =>this.setBookingTime(time)} disabled={!settedDate}>
+                          <Button key={index} className={settedTime === time ? classes.timeActivity : classes.time} onClick={() => this.setBookingTime(time)} disabled={!settedDate}>
                             {parseInt(time.substr(0, time.length - 1)) - 12 + ' : ' + time.substr(time.length - 3)} pm
                           </Button>
                         )
@@ -350,7 +348,7 @@ class PickDate extends Component {
                       }
 
                     })
-                  : <p> There is no availability</p>
+                    : <p> There is no availability</p>
                 }
               </Grid>
 
@@ -359,10 +357,10 @@ class PickDate extends Component {
                 {
                   times.length > 0 ?
                     times.map((time, index) => {
-                      if(parseInt(time) >= 17 && parseInt(time) < 20) {
+                      if (parseInt(time) >= 17 && parseInt(time) < 20) {
                         return (
-                          <Button key={index} className={settedTime === time ? classes.timeActivity :classes.time} onClick={() =>this.setBookingTime(time)} disabled={!settedDate}>
-                          {parseInt(time.substr(0, time.length - 1)) - 12 + ' : ' + time.substr(time.length - 3)} pm
+                          <Button key={index} className={settedTime === time ? classes.timeActivity : classes.time} onClick={() => this.setBookingTime(time)} disabled={!settedDate}>
+                            {parseInt(time.substr(0, time.length - 1)) - 12 + ' : ' + time.substr(time.length - 3)} pm
                           </Button>
                         )
                       } else {
@@ -370,7 +368,7 @@ class PickDate extends Component {
                       }
 
                     })
-                  : <p> There is no availability</p>
+                    : <p> There is no availability</p>
                 }
               </Grid>
 

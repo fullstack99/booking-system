@@ -27,7 +27,8 @@ export default api => {
                 if (data.bookingTime && data.bookingDate) {
                     const bookingRes = yield call(api.appointment, {
                         appointment: user.firstName + ' ' + user.lastName,
-                        location: data.location,
+                        addressOne: data.addressOne,
+                        addressTwo: data.addressTwo,
                         bookingTime: data.bookingTime,
                         bookingDate: data.bookingDate,
                         type: data.type,
@@ -94,7 +95,8 @@ export default api => {
                 if (data.bookingTime && data.bookingDate) {
                     const bookingRes = yield call(api.appointment, {
                         appointment: user.firstName + ' ' + user.lastName,
-                        location: data.location,
+                        addressOne: data.addressOne,
+                        addressTwo: data.addressTwo,
                         bookingTime: data.bookingTime,
                         bookingDate: data.bookingDate,
                         type: data.type,

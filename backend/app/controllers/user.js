@@ -63,7 +63,7 @@ module.exports = {
                         if (perr) {
                             return res.status(500).send({ error: perr });
                         }
-                        user.pictureUrl = pres;
+                        user.glassUrl = pres;
                         user = _.merge(user, req.body);
                         user.save(function (error) {
                             if (error) {
@@ -179,6 +179,7 @@ module.exports = {
                     })
 
                 } else {
+                    console.log(req.body)
                     user = _.merge(user, req.body);
                 }
 

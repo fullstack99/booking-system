@@ -5,7 +5,8 @@ const _ = require('lodash');
 
 const INITIAL_STATE = Immutable({
     type: '',
-    location: '',
+    addressOne: '',
+    addressTwo: '',
     appointment: '',
     booking: null,
     error: null,
@@ -26,7 +27,8 @@ const INITIAL_STATE = Immutable({
 const setSubscriptionType = (state, { type, data }) => {
     return state.merge({
         type: data.type,
-        location: data.location
+        addressOne: data.addressOne,
+        addressTwo: data.addressTwo
     })
 }
 

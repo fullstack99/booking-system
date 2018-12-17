@@ -9,7 +9,7 @@ sgMail.setApiKey(config.mail.key);
 module.exports = {
     create(req, res) {
         const mail = req.body.email;
-
+        console.log(req.body);
         Appointment.findOne({
             $and: [
                 {_user: req.body._user},
@@ -22,7 +22,7 @@ module.exports = {
                     subject: 'Appointment',
                     text: 'Booking Appointment',
                     html: ` <strong>You have already one appointment</strong></br>
-                            <strong>Place: </strong><p>${appointment.location}</p></br>
+                            <strong>Place: </strong><p>${appointment.addressOne}</p></br><p>${appointment.addressTwo}</p>
                             <strong>Time: </strong><p>${appointment.bookingDate} ${appointment.bookingTime}</p></br>
                             <strong>Type: </strong><p>${appointment.type}</p>`,
                 };
@@ -47,7 +47,7 @@ module.exports = {
                             from: 'noreply@wgv.com',
                             subject: 'New Appointment',
                             text: 'Booking Appointment',
-                            html: ` <strong>Place: </strong><p>${appointment.location}</p> </br>
+                            html: ` <strong>Place: </strong><p>${appointment.addressOne}</p></br><p>${appointment.addressTwo}</p>
                                     <strong>Time: </strong><p>${appointment.bookingDate} ${appointment.bookingTime}</p></br>
                                     <strong>Type: </strong><p>${appointment.type}</p>`,
                         };

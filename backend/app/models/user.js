@@ -28,6 +28,7 @@ const userSchema = mongoose.Schema({
     visionContent: String,
     doctorName: String,
     pictureUrl: String,
+    glassUrl: String,
     license: String,
     creditCard: String,
     token: String,

@@ -112,7 +112,7 @@ const styles = theme => ({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    width: 170,
+    width: 190,
     height: 120,
     border: '1px solid white',
     margin: '20px 0',
@@ -191,7 +191,8 @@ class Delivered extends Component {
   checkType(value, event) {
     const data = {
       type: value,
-      location: 'delivered'
+      addressOne: 'delivered',
+      addressTwo: ''
     }
     this.props.setSubscriptionType(data);
     this.props.push('/pickDate');
