@@ -182,7 +182,7 @@ class Account extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
+
     if (nextProps.isAuthenticated) {
       setTimeout(() => {
         if (nextProps.userAppointment && nextProps.user.isConfirm) {
@@ -207,8 +207,6 @@ class Account extends Component {
   }
 
   componentDidMount() {
-    console.log('user', this.props.user)
-    console.log('userAppointment', this.props.userAppointment)
     if(this.props.isAuthenticated && !this.props.user.isAdmin) {
       if (this.props.userAppointment) {
         this.props.push('/detail');
@@ -229,7 +227,6 @@ class Account extends Component {
 
   handleChange = name => event => {
     const validate = {};
-    console.log(event.target.value)
     switch (name) {
       case 'email':
         validate.emailError = !validateEmail(event.target.value)
@@ -298,7 +295,7 @@ class Account extends Component {
     const { classes, uiLoadingIn, uiLoadingNew, token } = this.props
 
     const { emailError, passwordError, regEmailError, regPasswordError, regPasswordMatch, regFirstNameError, regLastNameError } = this.state
-console.log(this.state);
+
     return (
       <div className={classes.root}>
         <div className={classes.contentHeader}>
