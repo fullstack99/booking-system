@@ -206,6 +206,8 @@ class User extends Component {
   mobileNavigate(type) {
     if (type === 'login') {
       this.navigate('account');
+    } else if(type === 'detail') {
+      this.navigate('detail');
     } else {
       this.props.logout();
     }
@@ -242,7 +244,10 @@ class User extends Component {
         </div>
         <Divider />
         {isAuthenticated
-          ? <List className={classes.list} onClick={() => this.mobileNavigate('logout')}>Logout</List>
+          ? <React.Fragment>
+            <List className={classes.list} onClick={() => this.mobileNavigate('detail')}>Profile</List>
+            <List className={classes.list} onClick={() => this.mobileNavigate('logout')}>Logout</List>
+          </React.Fragment>
           : <List className={classes.list} onClick={() => this.mobileNavigate('login')} >Login</List>
         }
         <Divider />

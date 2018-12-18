@@ -195,7 +195,7 @@ class Detail extends Component {
   }
   componentDidMount() {
     if (this.myInput.current.offsetWidth < 150) {
-      this.setState({ prescriptionTab: 'MY Script'})
+      this.setState({ prescriptionTab: 'MY SCRIPT'})
     }
   }
 
