@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { push, replace } from 'react-router-redux';
 import { bindActionCreators, compose } from 'redux';
+import moment from 'moment';
+
 import Grid from '@material-ui/core/Grid'
 import Divider from '@material-ui/core/Divider';
 import Input from '@material-ui/core/Input';
@@ -188,7 +190,8 @@ class UserDetail extends Component {
       firstName: '',
       lastName: '',
       email: '',
-      phone: ''
+      phone: '',
+      dob: ''
 
     }
     this.handleselectedFile = this.handleselectedFile.bind(this);
@@ -283,7 +286,7 @@ class UserDetail extends Component {
   render() {
     const { classes, user, theme, clearNotification, notification } = this.props;
     const { doctorNameError, licenseError } = this.state;
-    console.log('user detail', this.state);
+
     if (user.isFetched && user.userInfo) {
       return (
         <React.Fragment>
@@ -300,6 +303,10 @@ class UserDetail extends Component {
             <FormControl className={classes.formControl} aria-describedby="email-helper-text">
               <InputLabel htmlFor="email-helper" className={classes.formLabel}>Email</InputLabel>
               <Input id="email-helper" className={classes.formInput} readOnly={true} value={this.state.email} defaultValue={this.state.email} type="text" onChange={this.handleChange('email')} />
+            </FormControl>
+            <FormControl className={classes.formControl} aria-describedby="dob-helper-text">
+              <InputLabel htmlFor="dob-helper" className={classes.formLabel}>Birthday</InputLabel>
+              <Input id="dob-helper" className={classes.formInput} readOnly={true} value={this.state.dob && moment(this.state.dob).format('YYYY-MM-DD')} defaultValue={this.state.dob && moment(this.state.dob).format('YYYY-MM-DD')} type="text" />
             </FormControl>
             <FormControl className={classes.formControl} aria-describedby="lens-helper-text">
               <InputLabel htmlFor="phone-helper" className={classes.formLabel}>Phone</InputLabel>

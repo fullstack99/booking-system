@@ -3,6 +3,7 @@ const sgMail = require('@sendgrid/mail');
 const jwt = require('jsonwebtoken');
 
 const Appointment = require('../models/appointment');
+const User = require('../models/user');
 const config = require('../config/config');
 sgMail.setApiKey(config.mail.key);
 
@@ -42,17 +43,23 @@ module.exports = {
                     if (err) {
                         return res.status(500).send({ error: err });
                     } else {
-                        const msg = {
-                            to: mail,
-                            from: 'noreply@wgv.com',
-                            subject: 'New Appointment',
-                            text: 'Booking Appointment',
-                            html: ` <strong>Place: </strong><p>${appointment.addressOne}</p></br><p>${appointment.addressTwo}</p>
-                                    <strong>Time: </strong><p>${appointment.bookingDate} ${appointment.bookingTime}</p></br>
-                                    <strong>Type: </strong><p>${appointment.type}</p>`,
-                        };
-                        sgMail.send(msg)
-                        res.status(200).send({ data: result });
+                        User.findById(req.body._user, function (error, user) {
+                            user.type = req.body.type;
+                            user.save(function(uerr, uresult) {
+                                const msg = {
+                                    to: mail,
+                                    from: 'noreply@wgv.com',
+                                    subject: 'New Appointment',
+                                    text: 'Booking Appointment',
+                                    html: ` <strong>Place: </strong><p>${appointment.addressOne}</p></br><p>${appointment.addressTwo}</p>
+                                            <strong>Time: </strong><p>${appointment.bookingDate} ${appointment.bookingTime}</p></br>
+                                            <strong>Type: </strong><p>${appointment.type}</p>`,
+                                };
+                                sgMail.send(msg)
+                                res.status(200).send({ data: result });
+                            })
+                        })
+
                     }
                 })
             }

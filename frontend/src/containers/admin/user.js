@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { push, replace } from 'react-router-redux';
 import { bindActionCreators, compose } from 'redux';
 import moment from 'moment';
+
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Paper from '@material-ui/core/Paper';
 import Select from '@material-ui/core/Select';
@@ -51,12 +52,14 @@ class AdminUser extends Component {
       rowsPerPage: 5,
       open: false,
       rows: [
-        { id: 'license', label: 'License #'},
-        { id: 'firstName', label: 'First Name' },
-        { id: 'lastName', label: 'Last Name' },
+        { id: 'firstName', label: 'First Name'},
+        { id: 'lastName', label: 'Last Name'},
         { id: 'email', label: 'Email' },
+        { id: 'dob', label: 'DOB' },
         { id: 'phone', label: 'Phone'},
-        { id: 'doctorName', label: 'Doctor Name'}
+        { id: 'type', label: 'Type'},
+        { id: 'doctorName', label: 'Doctor Name'},
+        { id: 'license', label: 'License'}
       ]
     }
   }
@@ -102,10 +105,19 @@ class AdminUser extends Component {
     this.props.push(`/admin/user/${user._id}`);
   }
 
+  getType = val => {
+    console.log(type)
+    let type = 'visionaire'
+    if (val && val.indexOf('single') > -1) {
+      type = 'single'
+    }
+    return type
+  }
+
   render() {
     const { classes, user, theme } = this.props;
     const { data, order, orderBy, selected, rowsPerPage, page, rows } = this.state;
-
+console.log(data);
     if (user.isFetched) {
       return (
         <Paper>
@@ -132,19 +144,15 @@ class AdminUser extends Component {
                           onClick={() => this.goToDetailPage(n)}
                         >
                           <TableCell component="th" scope="row">
-                            {n.license}
-                          </TableCell>
-                          <TableCell component="th" scope="row">
                             {n.firstName}
                           </TableCell>
-                          <TableCell>
-                            {n.lastName}
-                          </TableCell>
+                          <TableCell>{n.lastName}</TableCell>
                           <TableCell>{n.email}</TableCell>
+                          <TableCell>{n.dob ? moment(n.dob).format('YYYY-MM-DD') : null}</TableCell>
                           <TableCell>{n.phone}</TableCell>
-                          <TableCell component="th" scope="row">
-                            {n.doctorName}
-                          </TableCell>
+                          <TableCell>{this.getType(n.type)}</TableCell>
+                          <TableCell>{n.doctorName}</TableCell>
+                          <TableCell>{n.license}</TableCell>
                         </TableRow>
                       );
                     }

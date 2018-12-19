@@ -7,7 +7,6 @@ import { ConnectedRouter } from 'react-router-redux'
 import { PersistGate } from 'redux-persist/es/integration/react'
 import configureStore, { history } from './config/store'
 import Index from './containers/Index'
-// require('../node_modules/react-picky-date-time/lib/react-picky-date-time.min.css');
 
 const { persistor, store } = configureStore()
 

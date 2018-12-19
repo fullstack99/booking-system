@@ -21,6 +21,8 @@ import Checkbox from '@material-ui/core/Checkbox'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import IconButton from '@material-ui/core/IconButton';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import TextField from '@material-ui/core/TextField';
+import moment from 'moment';
 
 // Components
 
@@ -101,6 +103,17 @@ const styles = theme => ({
   },
   formInput: {
     color: '#717171',
+    "&:before": {
+      borderColor: '#717171'
+    },
+    "&:after": {
+      borderColor: '#717171'
+    },
+    fontFamily: 'Raleway SemiBold'
+  },
+  textFiled: {
+    color: '#717171',
+    borderBottom: '1px solid #717171',
     "&:before": {
       borderColor: '#717171'
     },
@@ -212,20 +225,23 @@ class Profile extends Component {
       lastNameError: false,
       passwordError: false,
       passwordMatch: false,
+      dobError: false
     };
     this.handleselectedFile = this.handleselectedFile.bind(this);
   }
 
   componentDidMount() {
     const { user } = this.props;
-    console.log(user);
+    console.log(user)
     this.setState({
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
       pictureUrl: user.pictureUrl,
-      phone: user.phone
+      phone: user.phone,
+      dob: user.dob && moment(user.dob).format('YYYY-MM-DD')
     });
+
   }
 
   handleChange = name => event => {
@@ -237,6 +253,9 @@ class Profile extends Component {
         break;
       case 'lastName':
         validate.lastNameError = !(event.target.value !== '')
+        break;
+      case 'dob':
+        validate.dobError = !(event.target.value !== '')
         break;
       case 'phone':
         validate.phoneError = !(event.target.value !== '')
@@ -261,14 +280,15 @@ class Profile extends Component {
   }
 
   handleUpdateSubmit() {
-    const { firstName, lastName, email, password, phone, confirmPassword, firstNameError, lastNameError, emailError, passwordError, passwordMatch } = this.state
+    const { firstName, lastName, email, password, phone, dob, confirmPassword, firstNameError, lastNameError, emailError, dobError, passwordError, passwordMatch } = this.state
 
-    if (firstName !== '' && lastName !== '' && email !== '' && !emailError && !passwordError && !passwordMatch && !firstNameError && !lastNameError) {
+    if (firstName !== '' && lastName !== '' && email !== '' && dob !== '' && !emailError && !passwordError && !passwordMatch && !firstNameError && !lastNameError && !dobError) {
       const data = new FormData();
       data.append('email', email);
       data.append('firstName', firstName);
       data.append('lastName', lastName);
       data.append('phone', phone);
+      data.append('dob', dob);
 
       if (this.state.selectedFile) {
         data.append('photo', this.state.selectedFile, this.state.selectedFile.name);
@@ -298,7 +318,7 @@ class Profile extends Component {
   render() {
 
     const { classes, uiLoadingNew, user } = this.props;
-    const { emailError, passwordError, passwordMatch, firstNameError, lastNameError, phoneError } = this.state;
+    const { emailError, passwordError, passwordMatch, firstNameError, lastNameError, phoneError, dobError } = this.state;
 
     return (
       <div className={classes.root}>
@@ -354,7 +374,21 @@ class Profile extends Component {
                       <FormHelperText id="reg-email-error-text" className={classes.formError}>Invalid Email!</FormHelperText>
                     }
                   </FormControl>
+                  <FormControl className={classes.formControl} aria-describedby="reg-dob-helper-text">
 
+                    <TextField
+                      id="reg-dob-helper"
+                      label="Birthday"
+                      className={classes.textFiled}
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                      value={this.state.dob} type="date"
+                      onChange={this.handleChange('dob')} />
+                    {dobError &&
+                      <FormHelperText id="reg-dob-error-text" className={classes.formError}>Required!</FormHelperText>
+                    }
+                  </FormControl>
                   <FormControl className={classes.formControl} aria-describedby="reg-password-helper-text">
                     <InputLabel htmlFor="reg-password-helper" className={classes.formLabel}>Password</InputLabel>
                     <Input id="reg-password-helper" className={classes.formInput} value={this.state.password} type="password" onChange={this.handleChange('password')} />

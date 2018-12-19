@@ -102,6 +102,17 @@ const theme = createMuiTheme({
 				color: '#fff',
 			},
 		},
+		MuiFormLabel: {
+			root: {
+				color: '#717171',
+			},
+
+		},
+		MuiInput: {
+			root: {
+				color: '#717171',
+			}
+		}
 	},
 })
 

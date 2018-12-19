@@ -7,6 +7,7 @@ const userSchema = mongoose.Schema({
     password: { type: String, default: "" },
     firstName: { type: String, default: "" },
     lastName: { type: String, default: "" },
+    dob: { type: Date, default: "" },
     phone: { type: String, default: "" },
     isAdmin: { type: Boolean, default: false },
     lens: String,
@@ -32,7 +33,8 @@ const userSchema = mongoose.Schema({
     license: String,
     creditCard: String,
     token: String,
-    isConfirm: { type: Boolean, default: false }
+    isConfirm: { type: Boolean, default: false },
+    type: { type: String, default: ""}
 },
 {
     timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
