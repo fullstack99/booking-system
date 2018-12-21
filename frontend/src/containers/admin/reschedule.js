@@ -40,7 +40,7 @@ const styles = theme => ({
   },
 });
 
-class AdminAppointment extends Component {
+class AdminUserReschedule extends Component {
 
   constructor(props) {
     super(props);
@@ -59,8 +59,6 @@ class AdminAppointment extends Component {
         { id: 'type', label: 'Sub Subscription Type' },
         { id: 'status', label: 'Appointment Status:' },
         { id: 'location', label: 'Location' },
-        { id: 'action', label: 'Action' },
-        // { id: 'pending', label: ''}
       ]
     }
   }
@@ -75,7 +73,7 @@ class AdminAppointment extends Component {
       console.log(nextProps.user.appointments)
       if(nextProps.user.appointments && nextProps.user.appointments.length > 0) {
         nextProps.user.appointments.map(item => {
-          if (item.status == 'pending') {
+          if (item.status == 'reschedule' || item.status == 'cancel') {
             data.push(item)
           }
         })
@@ -103,13 +101,6 @@ class AdminAppointment extends Component {
     this.setState({ rowsPerPage: event.target.value });
   };
 
-  handleChange = row => event => {
-    this.props.updateAppointmentStatusRequest({
-      id: row._id,
-      status: event.target.value
-    });
-  };
-
   getEndTime = startTime => {
     if (startTime) {
       const endTime = parseInt(startTime.substr(0, startTime.length - 1)) + 1 + ' : ' + startTime.substr(startTime.length - 3);
@@ -117,10 +108,6 @@ class AdminAppointment extends Component {
     } else {
       return startTime
     }
-  }
-
-  goToDetailPage = user => {
-    this.props.push(`/admin/user/${user._user}`);
   }
 
   render() {
@@ -150,7 +137,7 @@ class AdminAppointment extends Component {
                           tabIndex={-1}
                           key={n._id}
                         >
-                          <TableCell component="th" scope="row" onClick={() => this.goToDetailPage(n)}>
+                          <TableCell component="th" scope="row">
                             {n.appointment}
                           </TableCell>
                           <TableCell>{moment(n.created_at).format('YYYY, MMM DD')}</TableCell>
@@ -160,21 +147,6 @@ class AdminAppointment extends Component {
                           <TableCell>
                             <span className={classes.addressOne}>{n.addressOne},</span><br/>
                             <span className={classes.addressTwo}>{n.addressTwo}</span>
-                          </TableCell>
-                          <TableCell>
-                            <Select
-                              native
-                              onChange={this.handleChange(n)}
-                              inputProps={{
-                                name: 'actionType',
-                                id: 'actionType-native-simple',
-                              }}
-                            >
-                              <option value="">Select Action</option>
-                              <option value="confirmed">Complete Appointment</option>
-                              <option value="cancel">Cancel Appointment</option>
-                              <option value="reschedule">Reschedule </option>
-                            </Select>
                           </TableCell>
                         </TableRow>
                       );
@@ -208,7 +180,7 @@ class AdminAppointment extends Component {
   }
 }
 
-AdminAppointment.propTypes = {
+AdminUserReschedule.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
@@ -229,4 +201,4 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 
 export default compose(
   withStyles(styles), connect(mapStateToProps, mapDispatchToProps)
-)(AdminAppointment)
+)(AdminUserReschedule)

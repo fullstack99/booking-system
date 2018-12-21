@@ -10,6 +10,7 @@ import Layout from '../components/admin/Layout';
 import PrivateRoute from '../components/PrivateRoute';
 import AdminAppointment from './admin/appointment';
 import AdminUser from './admin/user';
+import AdminUserReschedule from './admin/reschedule';
 import UserDetail from './admin/detail';
 import AdminLocation from './admin/location';
 
@@ -51,6 +52,7 @@ class Admin extends Component {
             <Switch>
               <PrivateRoute exact path="/admin" canAccess={isAuthenticated} component={AdminAppointment} />
               <PrivateRoute exact path="/admin/user" canAccess={isAuthenticated} component={AdminUser} />
+              <PrivateRoute exact path="/admin/user/reschedule" canAccess={isAuthenticated} component={AdminUserReschedule} />
               <PrivateRoute exact path="/admin/user/:userId" canAccess={isAuthenticated} component={UserDetail} />
               <PrivateRoute exact path="/admin/location" canAccess={isAuthenticated} component={AdminLocation} />
               <Redirect to='/admin'  />

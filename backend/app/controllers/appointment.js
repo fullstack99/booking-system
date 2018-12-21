@@ -14,7 +14,7 @@ module.exports = {
         Appointment.findOne({
             $and: [
                 {_user: req.body._user},
-                {status: {$ne: 'cancel'}}
+                {status: {$eq: 'pending'}},
             ]}, function(error, appointment) {
             if (appointment) {
                 const msg = {
@@ -108,7 +108,7 @@ module.exports = {
     },
 
     list(req, res) {
-        Appointment.find({ status: {$ne: 'cancel'} }, function (err, appointments) {
+        Appointment.find(function (err, appointments) {
             if(err)
                 return res.status(500).send({ error: err });
 

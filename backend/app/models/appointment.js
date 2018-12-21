@@ -5,7 +5,7 @@ const appointmentSchema = mongoose.Schema({
     _user: { type: Schema.Types.ObjectId, ref: 'User' },
     status: {
 		type: String,
-        enum: ['confirmed', 'pending', 'cancel'],
+        enum: ['confirmed', 'pending', 'cancel', 'reschedule'],
         default: 'pending',
 		required: true,
         index: true,

@@ -21,6 +21,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import PersonIcon from '@material-ui/icons/Person';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import LogoutIcon from '@material-ui/icons/ExitToApp';
+import StarIcon from '@material-ui/icons/Star';
 import Button from '@material-ui/core/Button'
 import classNames from 'classnames';
 
@@ -198,15 +199,15 @@ class Layout extends Component {
                   <ListItemText primary="Users" />
                 </Link>
               </ListItem>
-              {/* <ListItem button>
-                <Button className={classes.link} onClick={this.logout}>
+              <ListItem button>
+                <Link to="/admin/user/reschedule" className={classes.link}>
                   <ListItemIcon>
-                    <LogoutIcon />
+                    <StarIcon />
                   </ListItemIcon>
-                  <ListItemText primary="Locations" />
-                </Button>
+                  <ListItemText primary="Reschedule" />
+                </Link>
 
-              </ListItem> */}
+              </ListItem>
             </List>
           </Drawer>
         </React.Fragment>

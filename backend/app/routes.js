@@ -14,7 +14,7 @@ module.exports = function(app, passport) {
                 AppointmentModel.findOne({
                     $and: [
                         {_user: req.user._id},
-                        {status: {$ne: 'cancel'}}
+                        {status: {$eq: 'pending'}}
                     ]} , function (err, appointment) {
                     if (err) {
                         return res.status(200).send({
@@ -36,10 +36,7 @@ module.exports = function(app, passport) {
                             token: req.user.generateJwt()
                         })
                     }
-
                 });
-
-
             } else {
                 res.status(401).send({ error: 'login failed' })
             }

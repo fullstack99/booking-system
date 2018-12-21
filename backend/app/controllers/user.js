@@ -225,7 +225,7 @@ module.exports = {
                     Appointment.findOne({
                         $and: [
                             {_user: result._id},
-                            {status: {$ne: 'cancel'}}
+                            {status: {$eq: 'pending'}}
                         ]} , function (err, appointment) {
                         if (err) {
                             return res.status(200).send({
