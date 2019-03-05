@@ -61,7 +61,8 @@ const styles = theme => ({
     fontSize: 25,
     color: '#2f2f2f',
     marginTop: 40,
-    fontFamily: 'Raleway SemiBold'
+    fontFamily: 'Raleway SemiBold',
+    cursor: 'pointer'
   },
   contents: {
     display: 'flex',
@@ -80,7 +81,8 @@ const styles = theme => ({
   avatar: {
     width: 150,
     height: 150,
-    borderRadius: '50%'
+    borderRadius: '50%',
+    cursor: 'pointer'
   },
   userName: {
     textAlign: 'center',
@@ -88,7 +90,8 @@ const styles = theme => ({
     fontSize: 20,
     fontWeight: 300,
     lineHeight: 2,
-    fontFamily: 'Raleway ExtraLight'
+    fontFamily: 'Raleway ExtraLight',
+    cursor: 'pointer'
   },
   grid: {
     marginTop: 50

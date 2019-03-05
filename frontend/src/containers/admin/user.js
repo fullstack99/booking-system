@@ -117,7 +117,7 @@ class AdminUser extends Component {
   render() {
     const { classes, user, theme } = this.props;
     const { data, order, orderBy, selected, rowsPerPage, page, rows } = this.state;
-console.log(data);
+
     if (user.isFetched) {
       return (
         <Paper>

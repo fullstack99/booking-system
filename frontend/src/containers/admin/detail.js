@@ -208,8 +208,6 @@ class UserDetail extends Component {
     if (nextProps.user.isFetched) {
       this.setState({...nextProps.user.userInfo}, () => {
         delete this.state.password;
-        delete this.state.created_at;
-        delete this.state.updated_at;
         this.setState(this.state);
       })
       this.setState({ notify: true })
@@ -444,6 +442,14 @@ class UserDetail extends Component {
               {doctorNameError &&
                 <FormHelperText id="doctorName-error-text" className={classes.formError}>Please insert Doctor Name</FormHelperText>
               }
+            </FormControl>
+            <FormControl className={classes.formControl} aria-describedby="created_at-helper-text">
+              <InputLabel htmlFor="created_at-helper" className={classes.formLabel}>Created Date</InputLabel>
+              <Input id="created_at-helper" className={classes.formInput} readOnly={true} value={moment(this.state.created_at).format('YYYY-MM-DD hh:mm:ss')} defaultValue={moment(this.state.created_at).format('YYYY-MM-DD hh:mm:ss')} type="text" />
+            </FormControl>
+            <FormControl className={classes.formControl} aria-describedby="updated_at-helper-text">
+              <InputLabel htmlFor="updated_at-helper" className={classes.formLabel}>Updated Date</InputLabel>
+              <Input id="updated_at-helper" className={classes.formInput} readOnly={true} value={moment(this.state.updated_at).format('YYYY-MM-DD hh:mm:ss')} defaultValue={moment(this.state.updated_at).format('YYYY-MM-DD hh:mm:ss')} type="text"/>
             </FormControl>
             <Divider />
             <h3>Vision</h3>

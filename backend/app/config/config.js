@@ -10,8 +10,8 @@ module.exports = {
         'url': 'https://s3.us-east-2.amazonaws.com/'
     },
     'twilio': {
-    	account_sid: 'ACc0bd2c4a1d5e7ef21d07467137dc324c',
-    	auth_token: '38e1cf1a4bbd4e0bae2fbffd2f3cbd0c'
+    	account_sid: 'AC8365f1181bca31f7c8069d00e0536252',
+    	auth_token: '2427d8a2d109189bb3a294087d6a59c5'
     },
     'mail': {
         key: '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'
