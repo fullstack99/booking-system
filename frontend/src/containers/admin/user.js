@@ -59,7 +59,9 @@ class AdminUser extends Component {
         { id: 'phone', label: 'Phone'},
         { id: 'type', label: 'Type'},
         { id: 'doctorName', label: 'Doctor Name'},
-        { id: 'license', label: 'License'}
+        { id: 'license', label: 'License'},
+        { id: 'created_at', label: 'Created At'},
+        { id: 'updated_at', label: 'Updated At'}
       ]
     }
   }
@@ -153,6 +155,8 @@ class AdminUser extends Component {
                           <TableCell>{this.getType(n.type)}</TableCell>
                           <TableCell>{n.doctorName}</TableCell>
                           <TableCell>{n.license}</TableCell>
+                          <TableCell>{n.created_at}</TableCell>
+                          <TableCell>{n.updated_at}</TableCell>
                         </TableRow>
                       );
                     }

@@ -34,7 +34,9 @@ const userSchema = mongoose.Schema({
     creditCard: String,
     token: String,
     isConfirm: { type: Boolean, default: false },
-    type: { type: String, default: ""}
+    type: { type: String, default: ""},
+    visionContent: String,
+    visionTitle: String
 },
 {
     timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }

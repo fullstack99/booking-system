@@ -19,6 +19,11 @@ import Snackbar from '@material-ui/core/Snackbar'
 import IconError from '@material-ui/icons/Error'
 import IconButton from '@material-ui/core/IconButton'
 import IconClose from '@material-ui/icons/Close'
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 import { Creators as Actions } from '../../actions';
 import glass from '../../assets/glass.png'
@@ -191,8 +196,8 @@ class UserDetail extends Component {
       lastName: '',
       email: '',
       phone: '',
-      dob: ''
-
+      dob: '',
+      modalOpen: false
     }
     this.handleselectedFile = this.handleselectedFile.bind(this);
   }
@@ -240,6 +245,7 @@ class UserDetail extends Component {
   }
 
   handleSubmit = () => {
+    this.setState({ modalOpen: false });
     if (!this.state.doctorNameError && this.state.doctorName && !this.state.licenseError && this.state.license) {
       const data = new FormData();
 
@@ -258,7 +264,6 @@ class UserDetail extends Component {
       this.props.updateUserInfoRequest(data, this.state.userId);
 
     }
-
   }
 
   handleselectedFile = event => {
@@ -281,9 +286,20 @@ class UserDetail extends Component {
     })
   }
 
+  handleClickOpen = () => {
+    if (!this.state.doctorNameError && this.state.doctorName && !this.state.licenseError && this.state.license) {
+      this.setState({ modalOpen: true });
+    }
+
+  };
+
+  handleClose = () => {
+    this.setState({ modalOpen: false });
+  };
+
   render() {
     const { classes, user, theme, clearNotification, notification } = this.props;
-    const { doctorNameError, licenseError } = this.state;
+    const { doctorNameError, licenseError, modalOpen } = this.state;
 
     if (user.isFetched && user.userInfo) {
       return (
@@ -292,11 +308,11 @@ class UserDetail extends Component {
             <h3>Uer info</h3>
             <FormControl className={classes.formControl} aria-describedby="firstName-helper-text">
               <InputLabel htmlFor="firstName-helper" className={classes.formLabel}>First Name</InputLabel>
-              <Input id="firstName-helper" className={classes.formInput} readOnly={true} value={this.state.firstName} defaultValue={this.state.firstName} type="text" onChange={this.handleChange('firstName')} />
+              <Input id="firstName-helper" className={classes.formInput} value={this.state.firstName} defaultValue={this.state.firstName} type="text" onChange={this.handleChange('firstName')} />
             </FormControl>
             <FormControl className={classes.formControl} aria-describedby="lastName-helper-text">
               <InputLabel htmlFor="lastName-helper" className={classes.formLabel}>Last Name</InputLabel>
-              <Input id="lastName-helper" className={classes.formInput} readOnly={true} value={this.state.lastName} defaultValue={this.state.lastName} type="text" onChange={this.handleChange('lastName')} />
+              <Input id="lastName-helper" className={classes.formInput} value={this.state.lastName} defaultValue={this.state.lastName} type="text" onChange={this.handleChange('lastName')} />
             </FormControl>
             <FormControl className={classes.formControl} aria-describedby="email-helper-text">
               <InputLabel htmlFor="email-helper" className={classes.formLabel}>Email</InputLabel>
@@ -304,11 +320,11 @@ class UserDetail extends Component {
             </FormControl>
             <FormControl className={classes.formControl} aria-describedby="dob-helper-text">
               <InputLabel htmlFor="dob-helper" className={classes.formLabel}>Birthday</InputLabel>
-              <Input id="dob-helper" className={classes.formInput} readOnly={true} value={this.state.dob && moment(this.state.dob).format('YYYY-MM-DD')} defaultValue={this.state.dob && moment(this.state.dob).format('YYYY-MM-DD')} type="text" />
+              <Input id="dob-helper" className={classes.formInput} value={this.state.dob && moment(this.state.dob).format('YYYY-MM-DD')} defaultValue={this.state.dob && moment(this.state.dob).format('YYYY-MM-DD')} type="text" />
             </FormControl>
             <FormControl className={classes.formControl} aria-describedby="lens-helper-text">
               <InputLabel htmlFor="phone-helper" className={classes.formLabel}>Phone</InputLabel>
-              <Input id="phone-helper" className={classes.formInput} readOnly={true} value={this.state.phone} defaultValue={this.state.phone} type="text" onChange={this.handleChange('phone')} />
+              <Input id="phone-helper" className={classes.formInput} value={this.state.phone} defaultValue={this.state.phone} type="text" onChange={this.handleChange('phone')} />
             </FormControl>
             <Divider />
             <h3>Glasses</h3>
@@ -443,14 +459,6 @@ class UserDetail extends Component {
                 <FormHelperText id="doctorName-error-text" className={classes.formError}>Please insert Doctor Name</FormHelperText>
               }
             </FormControl>
-            <FormControl className={classes.formControl} aria-describedby="created_at-helper-text">
-              <InputLabel htmlFor="created_at-helper" className={classes.formLabel}>Created Date</InputLabel>
-              <Input id="created_at-helper" className={classes.formInput} readOnly={true} value={moment(this.state.created_at).format('YYYY-MM-DD hh:mm:ss')} defaultValue={moment(this.state.created_at).format('YYYY-MM-DD hh:mm:ss')} type="text" />
-            </FormControl>
-            <FormControl className={classes.formControl} aria-describedby="updated_at-helper-text">
-              <InputLabel htmlFor="updated_at-helper" className={classes.formLabel}>Updated Date</InputLabel>
-              <Input id="updated_at-helper" className={classes.formInput} readOnly={true} value={moment(this.state.updated_at).format('YYYY-MM-DD hh:mm:ss')} defaultValue={moment(this.state.updated_at).format('YYYY-MM-DD hh:mm:ss')} type="text"/>
-            </FormControl>
             <Divider />
             <h3>Vision</h3>
             <div className={classes.in}>
@@ -465,7 +473,7 @@ class UserDetail extends Component {
 
               <Divider />
             </div>
-            <Button variant="contained" color="primary" className={classes.button} onClick={this.handleSubmit}>
+            <Button variant="contained" color="primary" className={classes.button} onClick={this.handleClickOpen}>
               Save
             </Button>
             <Button variant="contained" color="secondary" className={classes.button} onClick={this.gotoBack}>
@@ -509,6 +517,28 @@ class UserDetail extends Component {
               </IconButton>
             ]}
           />
+
+          <Dialog
+            open={this.state.modalOpen}
+            onClose={this.handleClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="alert-dialog-title">{"Use Google's location service?"}</DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+                Are you agreed?
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={this.handleClose} color="primary">
+                No
+              </Button>
+              <Button onClick={this.handleSubmit} color="primary" autoFocus>
+                Yes
+              </Button>
+            </DialogActions>
+          </Dialog>
         </React.Fragment>
       )
     } else {

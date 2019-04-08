@@ -232,14 +232,14 @@ class Profile extends Component {
 
   componentDidMount() {
     const { user } = this.props;
-    console.log(user)
+
     this.setState({
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
       pictureUrl: user.pictureUrl,
       phone: user.phone,
-      dob: user.dob && moment(user.dob).format('YYYY-MM-DD')
+      dob: user.dob ? moment(user.dob).format('YYYY-MM-DD') : null
     });
 
   }

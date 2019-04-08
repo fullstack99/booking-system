@@ -3,7 +3,7 @@ import { push } from 'react-router-redux';
 import { call, put, select, take, takeLatest } from 'redux-saga/effects';
 
 import { Creators as Actions, Types } from '../actions';
-
+import { history } from '../config/store'
 // import { delay } from 'redux-saga'
 
 export default api => {
@@ -115,6 +115,7 @@ export default api => {
     }
 
     function* updateUserInfo({ data, userId }) {
+        console.log(123123123)
         let error = 'Something went wrong.'
         const userInfoRes = yield call(api.updateUserInfo, {
             photo: data,
@@ -124,8 +125,7 @@ export default api => {
         if (userInfoRes.ok) {
             const success = 'Great Things Happening'
             // yield put(Actions.getUserInfoSuccess(userInfoRes.data.data))
-            return yield put(Actions.updateUserInfoSuccess(userInfoRes.data.data, success))
-            // return yield put(push('/admin/user'));
+            yield put(Actions.updateUserInfoSuccess(userInfoRes.data.data, success))
         } else {
             error = path(['data', 'error_msg'], userInfoRes) || error
             yield put(Actions.updateUserInfoFailed(error))
